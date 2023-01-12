@@ -1,38 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/pages/register/register.dart';
-import 'pages/login/login.dart';
+import 'package:mysavingapp/mainPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'howtoadd.dart';
+
+class categoryPick extends StatefulWidget {
+  const categoryPick({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<categoryPick> createState() => _categoryPickState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _categoryPickState extends State<categoryPick> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Image.asset('./assets/images/login/logo.png'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
           SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +23,7 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   Text(
-                    'Zacznijmy',
+                    'Wybierz kategorię w ',
                     style: TextStyle(
                       color: Color(0xff005796),
                       fontSize: 24,
@@ -48,32 +31,39 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: 'Inter',
                     ),
                   ),
-                  SizedBox(height: 35),
                   Text(
-                    'Zaloguj się lub zarejestruj i zacznij\n oszczędzać na swoje marzenia!',
+                    'której najczęściej',
                     style: TextStyle(
-                      color: Color(0xff005796),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
-                    ),
+                        color: Color(0xff005796),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter'),
                   ),
+                  Text(
+                    'wydajesz!',
+                    style: TextStyle(
+                        color: Color(0xff005796),
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Inter'),
+                  ),
+                  SizedBox(height: 10),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 40),
-          Image.asset('./assets/images/login/login_background_1.png',
-              width: 330, height: 227),
-          SizedBox(height: 40),
+          Image.asset('./assets/images/login/phone.png',
+              width: 530, height: 437),
+          SizedBox(height: 20),
           SizedBox(
-            width: 280,
+            width: 350,
             height: 45,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Login(),
+                    builder: (context) => const howToAdd(),
                   ),
                 );
               },
@@ -85,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Zaloguj się',
+                        'Dalej',
                         style: TextStyle(fontFamily: 'Inter', fontSize: 20),
                       ),
                     ],
@@ -109,14 +99,14 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 20),
           SizedBox(
-            width: 280,
+            width: 350,
             height: 45,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Register(),
+                    builder: (context) => const mainPage(),
                   ),
                 );
               },
@@ -124,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Zarejestruj się',
+                    'Pomiń',
                     style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff005796),
