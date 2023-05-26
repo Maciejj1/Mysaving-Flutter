@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../mainPage.dart';
-
 class howToAdd extends StatefulWidget {
   const howToAdd({super.key});
 
@@ -51,12 +49,12 @@ class _howToAddState extends State<howToAdd> {
             height: 45,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const mainPage(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const mainPage(),
+                //   ),
+                // );
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

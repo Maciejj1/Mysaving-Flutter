@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/pages/register/register.dart';
-import '../login/login.dart';
+import 'package:mysavingapp/pages/auth/pages/register/register.dart';
 import './howToSave.dart';
 
 class getStarted extends StatefulWidget {

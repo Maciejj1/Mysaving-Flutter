@@ -1,46 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/pages/register/register.dart';
-import 'pages/login/login.dart';
+import 'package:mysavingapp/pages/auth/pages/register/register.dart';
+import 'package:mysavingapp/pages/app_tutorial/categoryPick.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class howToSave extends StatefulWidget {
+  const howToSave({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<howToSave> createState() => _howToSaveState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _howToSaveState extends State<howToSave> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Image.asset('./assets/images/login/logo.png'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 30),
+          SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
                   Text(
-                    'Zacznijmy',
+                    'Jak zacząć',
                     style: TextStyle(
                       color: Color(0xff005796),
                       fontSize: 24,
@@ -48,32 +30,29 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: 'Inter',
                     ),
                   ),
+                  Text('oszczędzać?',
+                      style: TextStyle(
+                          color: Color(0xff005796),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Inter')),
                   SizedBox(height: 35),
-                  Text(
-                    'Zaloguj się lub zarejestruj i zacznij\n oszczędzać na swoje marzenia!',
-                    style: TextStyle(
-                      color: Color(0xff005796),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 40),
-          Image.asset('./assets/images/login/login_background_1.png',
-              width: 330, height: 227),
-          SizedBox(height: 40),
+          Image.asset('./assets/images/login/login_background_2.png',
+              width: 330, height: 237),
+          SizedBox(height: 70),
           SizedBox(
-            width: 280,
+            width: 350,
             height: 45,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Login(),
+                    builder: (context) => const categoryPick(),
                   ),
                 );
               },
@@ -85,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Zaloguj się',
+                        'Dalej',
                         style: TextStyle(fontFamily: 'Inter', fontSize: 20),
                       ),
                     ],
@@ -109,22 +88,22 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 20),
           SizedBox(
-            width: 280,
+            width: 350,
             height: 45,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Register(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const mainPage(),
+                //   ),
+                // );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Zarejestruj się',
+                    'Pomiń',
                     style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff005796),

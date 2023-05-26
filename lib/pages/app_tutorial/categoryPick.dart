@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/mainPage.dart';
 
 import 'howtoadd.dart';
 
@@ -103,12 +102,12 @@ class _categoryPickState extends State<categoryPick> {
             height: 45,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const mainPage(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const mainPage(),
+                //   ),
+                // );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
