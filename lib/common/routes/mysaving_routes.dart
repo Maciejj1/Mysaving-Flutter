@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/pages/auth/pages/login/login.dart';
 import 'package:mysavingapp/pages/dashboard/dashboard.dart';
 
 import '../../config/bloc/app_bloc.dart';
+import '../../pages/auth/login/login.dart';
 
 List<Page<dynamic>> onGeneratedMysavingViewPages(
   AppStatus status,

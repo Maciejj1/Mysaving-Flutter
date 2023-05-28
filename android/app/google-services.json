@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879590032897",
+    "project_id": "mysaving-b5915",
+    "storage_bucket": "mysaving-b5915.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879590032897:android:fe793783a775871f40e200",
+        "android_client_info": {
+          "package_name": "com.example.mysavingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879590032897-vuml3jrvp3b3688j3mpbgqlb4bntkfm5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd99QDN0_D4HeQYCgPORfzAOdYpGIEDSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879590032897-vuml3jrvp3b3688j3mpbgqlb4bntkfm5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

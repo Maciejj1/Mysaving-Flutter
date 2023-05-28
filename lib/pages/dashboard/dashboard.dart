@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysavingapp/config/bloc/app_bloc.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -16,7 +18,14 @@ class _DashboardState extends State<Dashboard> {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
-          children: [Text("Hej maciej")],
+          children: [
+            Text("Hej maciej"),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<AppBloc>().add(AppLogoutRequested());
+                },
+                child: Text('Wyloguj'))
+          ],
         ),
       )),
     );

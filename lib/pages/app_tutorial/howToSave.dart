@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/pages/auth/pages/register/register.dart';
 import 'package:mysavingapp/pages/app_tutorial/categoryPick.dart';
 
 class howToSave extends StatefulWidget {
