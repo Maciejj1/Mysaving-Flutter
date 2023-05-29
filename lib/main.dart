@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysavingapp/common/routes/mysaving_routes.dart';
 import 'package:mysavingapp/config/repository/auth_repository.dart';
 import 'package:mysavingapp/firebase_options.dart';
-import 'package:provider/provider.dart';
 
 import 'config/bloc/app_bloc.dart';
 

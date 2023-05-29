@@ -76,7 +76,6 @@ class AuthRepository {
         await _firebaseAuth.signInWithCredential(credential);
     final firebase_auth.User user = authResult.user!;
     assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
     final firebase_auth.User currentUser = _firebaseAuth.currentUser!;
     assert(user.uid == currentUser.uid);
     return 'signInWithGoogle succeeded: $user';

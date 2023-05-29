@@ -61,7 +61,7 @@ class _MysavingSnackBarState extends State<MysavingSnackBar> {
         child: Center(
           child: Text(
             widget.message,
-            style: theme.textTheme.bodyText2?.merge(
+            style: theme.textTheme.bodyMedium?.merge(
               const TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 16,
