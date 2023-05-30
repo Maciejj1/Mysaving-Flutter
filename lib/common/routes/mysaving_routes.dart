@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysavingapp/pages/dashboard/dashboard.dart';
+import 'package:mysavingapp/pages/main_page/main_page.dart';
 
 import '../../config/bloc/app_bloc.dart';
 import '../../pages/auth/login/login.dart';
@@ -10,7 +11,7 @@ List<Page<dynamic>> onGeneratedMysavingViewPages(
 ) {
   switch (status) {
     case AppStatus.authenticated:
-      return [Dashboard.page()];
+      return [MainPage.page()];
     case AppStatus.unauthenticated:
       return [LoginScreen.page()];
   }

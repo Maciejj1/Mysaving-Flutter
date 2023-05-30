@@ -1,19 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:mysavingapp/config/repository/google_repository.dart';
 
 import '../../../../../config/repository/auth_repository.dart';
 
 part 'google_state.dart';
 
 class GoogleCubit extends Cubit<GoogleState> {
-  final AuthRepository _authRepository;
-  GoogleCubit(this._authRepository) : super(GoogleState.initial());
+  final GoogleRepository _googleRepository;
+  GoogleCubit(this._googleRepository) : super(GoogleState.initial());
 
   Future<void> signUpFormSubmitted() async {
     if (state.status == GoogleStatus.submitting) return;
     emit(state.copyWith(status: GoogleStatus.submitting));
     try {
-      await _authRepository.signInWithGoogle();
+      await _googleRepository.signInWithGoogle();
       emit(state.copyWith(status: GoogleStatus.success));
     } catch (_) {}
   }

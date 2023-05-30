@@ -1,5 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+// Needed because we can't import `dart:html` into a mobile app,
+// while on the flip-side access to `dart:io` throws at runtime (hence the `kIsWeb` check below)
+import 'package:mysavingapp/config/repository/apple_repository.dart';
+import 'package:mysavingapp/config/repository/google_repository.dart';
+import 'package:mysavingapp/pages/auth/others/apple/apple_login.dart';
+import 'package:mysavingapp/pages/auth/others/google/google_login.dart';
+
+import './helpers/html_shim.dart' if (dart.library.html) 'dart:html'
+    show window;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -26,10 +41,11 @@ class LoginScreen extends StatelessWidget {
               create: (_) => LoginCubit(AuthRepository()),
             ),
             BlocProvider<AppleCubit>(
-              create: (context) => AppleCubit(AuthRepository()),
+              create: (context) =>
+                  AppleCubit(AppleRepository(FirebaseAuth.instance)),
             ),
             BlocProvider<GoogleCubit>(
-              create: (context) => GoogleCubit(AuthRepository()),
+              create: (context) => GoogleCubit(GoogleRepository()),
             ),
           ],
           child: LoginForm(),
@@ -153,8 +169,8 @@ class LoginForm extends StatelessWidget {
                   child: Text('Register here'))
             ],
           ),
-          AppleLogin(),
-          GoogleLogin()
+          AppleLoginScreen(),
+          GoogleLoginScreen(),
         ],
       ),
     );
@@ -231,53 +247,5 @@ class LoginButton extends StatelessWidget {
                       child: Text('Login')),
                 );
         });
-  }
-}
-
-class AppleLogin extends StatelessWidget {
-  const AppleLogin({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AppleCubit, AppleState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          onPressed: () {
-            context.read<AppleCubit>().signUpFormSubmitted();
-          },
-          child: Text('Login with apple'),
-        );
-      },
-    );
-  }
-}
-
-class GoogleLogin extends StatelessWidget {
-  const GoogleLogin({super.key});
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-    AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-    print(userCredential.user?.displayName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AppleCubit, AppleState>(
-      builder: (context, state) {
-        return ElevatedButton(
-          onPressed: () {
-            signInWithGoogle();
-          },
-          child: Text('Login with google'),
-        );
-      },
-    );
   }
 }

@@ -86,23 +86,6 @@ class AuthRepository {
   }
 
   Future<bool> get appleSingInAvailable => SignInWithApple.isAvailable();
-
-  Future<firebase_auth.UserCredential> appleSingIn() async {
-    final AuthorizationCredentialAppleID appleID =
-        await SignInWithApple.getAppleIDCredential(scopes: [
-      AppleIDAuthorizationScopes.email,
-      AppleIDAuthorizationScopes.fullName,
-    ]);
-    final firebase_auth.OAuthProvider oAuthProvider =
-        firebase_auth.OAuthProvider('apple.com');
-    final firebase_auth.OAuthCredential credential = oAuthProvider.credential(
-      idToken: appleID.identityToken,
-      accessToken: appleID.authorizationCode,
-    );
-
-    return await firebase_auth.FirebaseAuth.instance
-        .signInWithCredential(credential);
-  }
 }
 
 extension on firebase_auth.User {
