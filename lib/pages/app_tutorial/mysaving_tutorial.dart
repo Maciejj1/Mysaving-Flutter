@@ -28,12 +28,13 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
 
   static const bodyStyle = TextStyle(fontSize: 17.0, color: Color(0xff4D5284));
   static const pageDecoration = PageDecoration(
-    bodyFlex: 3,
-    imageFlex: 5,
+    bodyFlex: 4,
+    imageFlex: 6,
+
     titlePadding: EdgeInsets.fromLTRB(
-        16.0, 0, 16.0, 0), // Zmniejszono górną i dolną wartość
+        16.0, 30, 16.0, 20), // Zmniejszono górną i dolną wartość
     titleTextStyle: TextStyle(
-        fontSize: 28.0, fontWeight: FontWeight.w700, color: Color(0xff806FF1)),
+        fontSize: 28.0, fontWeight: FontWeight.w700, color: Color(0xFF202020)),
     bodyTextStyle: bodyStyle,
     bodyPadding: EdgeInsets.fromLTRB(
         16.0, 0, 16.0, 0), // Zmniejszono górną i dolną wartość
@@ -45,11 +46,17 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
   Widget build(BuildContext context) {
     return IntroductionScreen(
         globalFooter: Padding(
-          padding: EdgeInsets.only(bottom: 136),
-          child: SizedBox(
+          padding: EdgeInsets.only(bottom: 76),
+          child: Container(
             width: 250,
             height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Color(0xFF444FFF)),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
               child: const Text(
                 'Let\'s go right away!',
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -98,21 +105,21 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
         ),
         skip: const Text('Skip',
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: Color(0xff806FF1))),
+                fontWeight: FontWeight.w600, color: Color(0xFF444FFF))),
         next: const Icon(
           Icons.arrow_forward,
           color: Color(0xff806FF1),
         ),
         done: const Text('Go Earn',
             style: TextStyle(
-                fontWeight: FontWeight.w600, color: Color(0xff806FF1))),
+                fontWeight: FontWeight.w600, color: Color(0xFF444FFF))),
         curve: Curves.fastLinearToSlowEaseIn,
         controlsMargin: const EdgeInsets.only(bottom: 56),
         dotsDecorator: const DotsDecorator(
           size: Size(20.0, 10.0),
           color: Color(0xFFBDBDBD),
           activeSize: Size(22.0, 10.0),
-          activeColor: Color(0xff806FF1),
+          activeColor: Color(0xFF444FFF),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
           ),

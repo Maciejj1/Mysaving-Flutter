@@ -72,11 +72,11 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Go router',
-      home: WelcomeTutorialScreen(),
-      // home: FlowBuilder(
-      //   onGeneratePages: onGeneratedMysavingViewPages,
-      //   state: context.select((AppBloc bloc) => bloc.state.status),
-      // ),
+      // home: WelcomeTutorialScreen(),
+      home: FlowBuilder(
+        onGeneratePages: onGeneratedMysavingViewPages,
+        state: context.select((AppBloc bloc) => bloc.state.status),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

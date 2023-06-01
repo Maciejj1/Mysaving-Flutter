@@ -61,6 +61,7 @@ dependencies:
   gap: ^3.0.0
   introduction_screen: ^3.1.8
   flutter_walkthrough_screen: ^2.0.2
+  syncfusion_flutter_charts: ^21.2.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
