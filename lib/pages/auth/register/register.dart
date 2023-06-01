@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/helpers/mysaving_snackbar.dart';
 import 'package:mysavingapp/config/repository/auth_repository.dart';
+import 'package:mysavingapp/pages/app_tutorial/welcome_tutorial.dart';
+import 'package:mysavingapp/pages/auth/login/login.dart';
 import 'package:mysavingapp/pages/auth/register/cubit/register_cubit.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
+import '../../../common/utils/mysaving_images.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -28,8 +34,8 @@ class RegisterScreen extends StatelessWidget {
 }
 
 class RegisterForm extends StatelessWidget {
-  const RegisterForm({super.key});
-
+  RegisterForm({super.key});
+  MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
@@ -47,7 +53,7 @@ class RegisterForm extends StatelessWidget {
             regex.hasMatch(state.email) &&
             state.email.isNotEmpty &&
             state.password.isNotEmpty) {
-          Navigator.pop(context);
+          Navigator.of(context).push<void>(WelcomeTutorialScreen.route());
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(
@@ -116,18 +122,41 @@ class RegisterForm extends StatelessWidget {
       },
       child: Column(
         children: [
-          SizedBox(
-            height: 10,
+          Gap(70),
+          SvgPicture.asset(
+            images.mysavingLogo,
           ),
+          Gap(40),
+          Text(
+            'Zarejestruj się',
+            style: TextStyle(
+                color: Color(0xFF202020),
+                fontFamily: 'Inter',
+                fontSize: 22,
+                fontWeight: FontWeight.w800),
+          ),
+          Gap(60),
           RegisterEmailTextField(),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           RegisterPasswordTextField(),
+          Gap(60),
+          RegisterButton(),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
-          RegisterButton()
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Posiadasz konto?'),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push<void>(LoginScreen.route());
+                  },
+                  child: Text('Zaloguj się'))
+            ],
+          ),
         ],
       ),
     );
@@ -142,16 +171,31 @@ class RegisterEmailTextField extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
       return Column(
         children: [
-          Row(
-            children: [Text('Email')],
-          ),
           SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            onChanged: (email) {
-              context.read<RegisterCubit>().emailChanged(email);
-            },
+            height: 50,
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.bottom,
+              onChanged: (email) {
+                context.read<RegisterCubit>().emailChanged(email);
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.mail),
+                  hintText: "Email",
+                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      )),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      ))),
+            ),
           )
         ],
       );
@@ -167,16 +211,31 @@ class RegisterPasswordTextField extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
       return Column(
         children: [
-          Row(
-            children: [Text('Password')],
-          ),
           SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            onChanged: (password) {
-              context.read<RegisterCubit>().passwordChanged(password);
-            },
+            height: 50,
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.bottom,
+              onChanged: (password) {
+                context.read<RegisterCubit>().passwordChanged(password);
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.lock),
+                  hintText: "Hasło",
+                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      )),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      ))),
+            ),
           )
         ],
       );
@@ -196,8 +255,14 @@ class RegisterButton extends StatelessWidget {
               ? const CircularProgressIndicator.adaptive()
               : Container(
                   height: 44,
-                  width: 150,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xFF444FFF)),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent),
                       onPressed: () {
                         context.read<RegisterCubit>().signUpFormSubmitted();
                       },

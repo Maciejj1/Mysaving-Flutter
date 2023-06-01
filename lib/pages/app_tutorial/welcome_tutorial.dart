@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:mysavingapp/common/utils/mysaving_colors.dart';
-import 'package:mysavingapp/common/utils/mysaving_images.dart';
-import 'package:mysavingapp/pages/auth/login/login.dart';
+import 'package:mysavingapp/pages/app_tutorial/mysaving_tutorial.dart';
 
-// ignore: must_be_immutable
-class SplashScreen extends StatelessWidget {
-  static Page<void> page() => MaterialPage<void>(child: SplashScreen());
-  SplashScreen({super.key});
+import '../../common/utils/mysaving_images.dart';
+
+class WelcomeTutorialScreen extends StatelessWidget {
+  WelcomeTutorialScreen({super.key});
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => WelcomeTutorialScreen());
+  }
+
   MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
@@ -17,13 +19,13 @@ class SplashScreen extends StatelessWidget {
           child: SingleChildScrollView(
         child: Center(
           child: Column(children: [
-            Gap(30),
+            Gap(180),
             SvgPicture.asset(
               images.mysavingLogo,
             ),
-            Gap(30),
+            Gap(100),
             Text(
-              'Zacznijmy',
+              'Witaj Jan w MySaving!',
               style: TextStyle(
                   color: Color(0xFF202020),
                   fontFamily: 'Inter',
@@ -32,9 +34,9 @@ class SplashScreen extends StatelessWidget {
             ),
             Gap(30),
             SizedBox(
-              width: 250,
+              width: 350,
               child: Text(
-                'Zaloguj się lub zarejstruj i zacznij oszczędzać na swoje marzenia',
+                'Kliknij w przycisk aby zacząć oszczędzać na swoje marzenia!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Color(0xFF202020),
@@ -43,8 +45,6 @@ class SplashScreen extends StatelessWidget {
                     fontWeight: FontWeight.w300),
               ),
             ),
-            Gap(50),
-            Image.asset(images.splashScreen),
             Gap(80),
             Container(
               height: 44.0,
@@ -57,7 +57,7 @@ class SplashScreen extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent),
                   onPressed: () {
-                    Navigator.of(context).push<void>(LoginScreen.route());
+                    Navigator.of(context).push<void>(MySavingTutorial.route());
                   },
                   child: Text('Zacznijmy')),
             ),

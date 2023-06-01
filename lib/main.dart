@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysavingapp/common/routes/mysaving_routes.dart';
 import 'package:mysavingapp/config/repository/auth_repository.dart';
 import 'package:mysavingapp/firebase_options.dart';
+import 'package:mysavingapp/pages/app_tutorial/welcome_tutorial.dart';
 
 import 'config/bloc/app_bloc.dart';
 
@@ -71,10 +72,11 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Go router',
-      home: FlowBuilder(
-        onGeneratePages: onGeneratedMysavingViewPages,
-        state: context.select((AppBloc bloc) => bloc.state.status),
-      ),
+      home: WelcomeTutorialScreen(),
+      // home: FlowBuilder(
+      //   onGeneratePages: onGeneratedMysavingViewPages,
+      //   state: context.select((AppBloc bloc) => bloc.state.status),
+      // ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

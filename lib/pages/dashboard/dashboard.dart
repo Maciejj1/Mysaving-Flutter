@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/config/bloc/app_bloc.dart';
 
 class Dashboard extends StatefulWidget {
@@ -10,6 +12,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +21,8 @@ class _DashboardState extends State<Dashboard> {
         child: Column(
           children: [
             Text("Hej maciej"),
+            Image.asset(images.splashScreen),
+            SvgPicture.asset(images.splashScreen),
             ElevatedButton(
                 onPressed: () {
                   context.read<AppBloc>().add(AppLogoutRequested());

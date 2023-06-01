@@ -57,6 +57,10 @@ dependencies:
   the_apple_sign_in: ^1.1.1
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.1
+  flutter_svg: ^2.0.5
+  gap: ^3.0.0
+  introduction_screen: ^3.1.8
+  flutter_walkthrough_screen: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -83,7 +87,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/login/
+    - assets/images/dashboard/
+    - assets/images/splash_screen/
+    - assets/images/tutorials/
+    - assets/images/logos/
+    - assets/images/svg/
     - assets/images/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see

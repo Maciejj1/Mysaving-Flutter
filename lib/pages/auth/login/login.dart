@@ -1,6 +1,9 @@
 import 'dart:io';
 // Needed because we can't import `dart:html` into a mobile app,
 // while on the flip-side access to `dart:io` throws at runtime (hence the `kIsWeb` check below)
+import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/config/repository/apple_repository.dart';
 import 'package:mysavingapp/config/repository/google_repository.dart';
 import 'package:mysavingapp/pages/auth/others/apple/apple_login.dart';
@@ -29,6 +32,10 @@ import 'cubit/login_cubit.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +63,8 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
-
+  LoginForm({super.key});
+  MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
@@ -75,6 +82,7 @@ class LoginForm extends StatelessWidget {
             regex.hasMatch(state.email) &&
             state.email.isNotEmpty &&
             state.password.isNotEmpty) {
+          Navigator.pop(context);
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(
@@ -143,34 +151,61 @@ class LoginForm extends StatelessWidget {
       },
       child: Column(
         children: [
-          SizedBox(
-            height: 10,
+          Gap(70),
+          SvgPicture.asset(
+            images.mysavingLogo,
           ),
+          Gap(40),
+          Text(
+            'Witaj z powrotem',
+            style: TextStyle(
+                color: Color(0xFF202020),
+                fontFamily: 'Inter',
+                fontSize: 22,
+                fontWeight: FontWeight.w800),
+          ),
+          Gap(60),
           LoginEmailTextField(),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           LoginPasswordTextField(),
-          SizedBox(
-            height: 10,
-          ),
+          Gap(60),
           LoginButton(),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Dont have account?'),
+              Text('Nie posiadasz konta?'),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).push<void>(RegisterScreen.route());
                   },
-                  child: Text('Register here'))
+                  child: Text('Zarejestruj się'))
             ],
           ),
-          AppleLoginScreen(),
-          GoogleLoginScreen(),
+          Text(
+            'LUB',
+            style: TextStyle(
+                color: Color(0xFF202020),
+                fontFamily: 'Inter',
+                fontSize: 18,
+                fontWeight: FontWeight.w800),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GoogleLoginScreen(),
+                AppleLoginScreen(),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -185,16 +220,31 @@ class LoginEmailTextField extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
       return Column(
         children: [
-          Row(
-            children: [Text('Email')],
-          ),
           SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            onChanged: (email) {
-              context.read<LoginCubit>().emailChanged(email);
-            },
+            height: 50,
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.bottom,
+              onChanged: (email) {
+                context.read<LoginCubit>().emailChanged(email);
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.mail),
+                  hintText: "Email",
+                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      )),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      ))),
+            ),
           )
         ],
       );
@@ -210,16 +260,31 @@ class LoginPasswordTextField extends StatelessWidget {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
       return Column(
         children: [
-          Row(
-            children: [Text('Password')],
-          ),
           SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            onChanged: (password) {
-              context.read<LoginCubit>().passwordChanged(password);
-            },
+            height: 50,
+            child: TextFormField(
+              textAlignVertical: TextAlignVertical.bottom,
+              onChanged: (password) {
+                context.read<LoginCubit>().passwordChanged(password);
+              },
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.lock),
+                  hintText: "Hasło",
+                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      )),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        width: 0.5,
+                        color: Color(0xFFDADADA),
+                      ))),
+            ),
           )
         ],
       );
@@ -239,8 +304,14 @@ class LoginButton extends StatelessWidget {
               ? const CircularProgressIndicator.adaptive()
               : Container(
                   height: 44,
-                  width: 150,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xFF444FFF)),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent),
                       onPressed: () {
                         context.read<LoginCubit>().singInFormSubmitted();
                       },

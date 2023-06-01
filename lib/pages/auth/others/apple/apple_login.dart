@@ -10,6 +10,7 @@ import 'package:mysavingapp/config/repository/auth_repository.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../../common/helpers/mysaving_snackbar.dart';
+import '../../../../common/utils/mysaving_images.dart';
 import '../../login/helpers/html_shim.dart' if (dart.library.html) 'dart:html'
     show window;
 import 'cubit/apple_cubit.dart';
@@ -48,8 +49,8 @@ class AppleLoginForm extends StatelessWidget {
 }
 
 class AppleLogin extends StatelessWidget {
-  const AppleLogin({super.key});
-
+  AppleLogin({super.key});
+  MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppleCubit, AppleState>(
@@ -57,11 +58,17 @@ class AppleLogin extends StatelessWidget {
       builder: (context, state) {
         return state.status == AppleStatus.submitting
             ? const CircularProgressIndicator.adaptive()
-            : ElevatedButton(
+            : RawMaterialButton(
                 onPressed: () {
                   context.read<AppleCubit>().signUpFormSubmitted();
                 },
-                child: Text('Login via apple'));
+                elevation: 1.0,
+                fillColor: Colors.white,
+                child:
+                    SizedBox(width: 16, child: Image.asset(images.appleImage)),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+              );
       },
     );
   }

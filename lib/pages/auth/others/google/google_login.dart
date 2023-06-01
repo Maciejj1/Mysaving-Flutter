@@ -8,6 +8,7 @@ import 'package:mysavingapp/pages/auth/others/google/cubit/google_cubit.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../../common/helpers/mysaving_snackbar.dart';
+import '../../../../common/utils/mysaving_images.dart';
 
 class GoogleLoginScreen extends StatelessWidget {
   const GoogleLoginScreen({super.key});
@@ -45,8 +46,8 @@ class GoogleLoginForm extends StatelessWidget {
 }
 
 class GoogleLogin extends StatelessWidget {
-  const GoogleLogin({super.key});
-
+  GoogleLogin({super.key});
+  MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GoogleCubit, GoogleState>(
@@ -54,11 +55,16 @@ class GoogleLogin extends StatelessWidget {
       builder: (context, state) {
         return state.status == GoogleStatus.submitting
             ? const CircularProgressIndicator.adaptive()
-            : ElevatedButton(
+            : RawMaterialButton(
                 onPressed: () {
                   context.read<GoogleCubit>().signUpFormSubmitted();
                 },
-                child: Text('Login with google'),
+                elevation: 1.0,
+                fillColor: Colors.white,
+                child:
+                    SizedBox(width: 20, child: Image.asset(images.googleImage)),
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
               );
       },
     );
