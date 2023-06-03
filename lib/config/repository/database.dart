@@ -22,6 +22,9 @@ class DatabaseService {
       int totalCosts = category.expenses.fold(
           0, (int previousValue, expense) => previousValue + expense.cost);
 
+      category.costs =
+          totalCosts; // Aktualizacja pola "costs" w klasie Category
+
       return {
         'id': category.id,
         'name': category.name,
@@ -35,7 +38,8 @@ class DatabaseService {
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
     await userExpenseDoc.set({
       'id': uid,
-      'costs': 0,
+      'costs': categories.fold(
+          0, (int previousValue, category) => previousValue + category.costs),
       'categories': categoriesData,
     });
   }
