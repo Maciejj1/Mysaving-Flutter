@@ -9,9 +9,11 @@ class UserManager {
   Future<void> setUID(String uid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('uid', uid);
+    print('usermanager $uid');
   }
 
   Future<String?> getUID() async {
+    print('usermanager uiddd');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('uid');
   }

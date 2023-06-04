@@ -1,6 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mysavingapp/config/models/dashboard_model.dart';
+import 'package:mysavingapp/config/models/premium_user_model.dart';
+import 'package:mysavingapp/config/models/profile_model.dart';
+import 'package:mysavingapp/config/models/settings_model.dart';
+import 'package:mysavingapp/config/repository/dashboard_repository.dart';
 import 'package:mysavingapp/config/repository/database.dart';
+import 'package:mysavingapp/config/repository/premium_user_repository.dart';
+import 'package:mysavingapp/config/repository/profile_repository.dart';
+import 'package:mysavingapp/config/repository/settings_repository.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/category_model.dart';
@@ -85,7 +93,90 @@ class AuthRepository {
 
         // Add the remaining categories and expenses here
       ];
-
+      List<DashboardModel> dashboard = [
+        DashboardModel(
+            dashboardLastExpenses: [
+              DashboardLastExpenses(categories: categories)
+            ],
+            dashboardSummary: [
+              DashboardSummary(
+                  id: 1, saldo: 1000, saving: 1000, expenses: 1000),
+            ],
+            id: 1,
+            dashboardAnalytics: [
+              DashboardAnalytics(summary: [
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 200,
+                  id: 1,
+                  saldo: 1500,
+                  saving: 1300,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 200,
+                  id: 2,
+                  saldo: 1300,
+                  saving: 1100,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 0,
+                  id: 3,
+                  saldo: 3000,
+                  saving: 2900,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 500,
+                  id: 4,
+                  saldo: 3500,
+                  saving: 2400,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 300,
+                  id: 5,
+                  saldo: 3200,
+                  saving: 2100,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 1000,
+                  id: 6,
+                  saldo: 2200,
+                  saving: 1100,
+                ),
+                DashboardAnalitycsDay(
+                  date: DateTime.now(),
+                  expenses: 100,
+                  id: 7,
+                  saldo: 2100,
+                  saving: 1000,
+                )
+              ])
+            ])
+      ];
+      List<UserProfile> profile = [
+        UserProfile(
+            pictureImage: '',
+            name: 'Wacław',
+            password: password,
+            email: email,
+            dateOfBirth: '20/11/2001',
+            id: 1)
+      ];
+      List<PremiumUser> premium = [
+        PremiumUser(silverUser: 0, goldUser: 0, diamondUser: 0, id: 1)
+      ];
+      List<SettingsModel> settings = [
+        SettingsModel(general: [
+          GeneralSettings(
+              country: 'Poland', currency: 'PLN', language: 'Polish')
+        ], notifications: [
+          NotificationsSettings(notifications: 0)
+        ], id: 1)
+      ];
       int calculateTotalCosts(int categoryId) {
         Category category =
             categories.firstWhere((cat) => cat.id == categoryId);
@@ -102,7 +193,10 @@ class AuthRepository {
       UserManager().setUID(uid);
 
       await DatabaseService(uid: uid).updateUserData(categories);
-
+      await DashboardRepository(uid: uid).updateUserData(dashboard);
+      await ProfileRepository(uid: uid).updateUserData(profile);
+      await PremiumUserRepository(uid: uid).updateUserData(premium);
+      await SettingsRepository(uid: uid).updateUserData(settings);
       print('Expenses data has been updated for the user with UID: $uid');
     } catch (_) {}
   }

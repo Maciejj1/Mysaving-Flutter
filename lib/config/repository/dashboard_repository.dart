@@ -1,47 +1,76 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/dashboard_expenses.dart';
+
 import '../models/dashboard_model.dart';
-import '../models/dashboard_summary.dart';
 
 class DashboardRepository {
   final String? uid;
-  final CollectionReference expenseCollection =
-      FirebaseFirestore.instance.collection('expenses');
 
   DashboardRepository({this.uid});
 
-  Future<void> updateUserData(DashboardModel dashboard) async {
-    List<Map<String, dynamic>> summariesData =
-        dashboard.summaries.map((summary) {
+  final CollectionReference expenseCollection =
+      FirebaseFirestore.instance.collection('userData');
+
+  Future<void> updateUserData(List<DashboardModel> dashboards) async {
+    List<Map<String, dynamic>> dashboardData = dashboards.map((dashboard) {
+      List<Map<String, dynamic>> dashboardSummary =
+          dashboard.dashboardSummary.map((summary) {
+        return {
+          'id': summary.id,
+          'saldo': summary.saldo,
+          'saving': summary.saving,
+          'expenses': summary.expenses,
+        };
+      }).toList();
+
+      List<Map<String, dynamic>> dashboardLastExpenses =
+          dashboard.dashboardLastExpenses.map((lastExpenses) {
+        return {
+          'categories': lastExpenses.categories.map((category) {
+            return {
+              'id': category.id,
+              'name': category.name,
+              'url': category.url,
+              'expenses': category.expenses.map((expense) {
+                return {
+                  'name': expense.name,
+                  'cost': expense.cost,
+                };
+              }).toList(),
+              'costs': category.costs,
+            };
+          }).toList(),
+        };
+      }).toList();
+      List<Map<String, dynamic>> dashboardAnalitycs =
+          dashboard.dashboardAnalytics.map((analitycs) {
+        return {
+          'summary': analitycs.summary.map((anali) {
+            return {
+              'id': anali.id,
+              'saldo': anali.saldo,
+              'expenses': anali.expenses,
+              'saving': anali.saving,
+              'date': anali.weekdayName,
+            };
+          }).toList(),
+        };
+      }).toList();
+
       return {
-        'name': summary.name,
-        'saldo': summary.saldo,
-        'oszczednosci': summary.oszczednosci,
-        'wydatki': summary.wydatki,
+        'id': dashboard.id,
+        'dashboardSummary': dashboardSummary,
+        'dashboardLastExpenses': dashboardLastExpenses,
+        'dashboardAnalitycs': dashboardAnalitycs,
       };
     }).toList();
 
-    List<Map<String, dynamic>> expensesData = dashboard.expenses.map((expense) {
-      return {
-        'id': expense.id,
-        'totalOszczednosci': expense.totalOszczednosci,
-      };
-    }).toList();
-
-    List<Map<String, dynamic>> analyticsData =
-        dashboard.analytics.map((analytics) {
-      return {
-        'id': analytics.id,
-        'weeklyExpenses': analytics.weeklyExpenses,
-      };
-    }).toList();
-
+    // Tworzymy nowy dokument w kolekcji "expenses" z UID użytkownika jako ID dokumentu
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
-    await userExpenseDoc.set({
-      'id': uid,
-      'summaries': summariesData,
-      'expenses': expensesData,
-      'analytics': analyticsData,
+    CollectionReference userDashboardCol =
+        userExpenseDoc.collection('dashboard');
+
+    await userDashboardCol.add({
+      'dashboards': dashboardData,
     });
   }
 }

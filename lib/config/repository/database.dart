@@ -7,7 +7,7 @@ class DatabaseService {
   DatabaseService({this.uid});
 
   final CollectionReference expenseCollection =
-      FirebaseFirestore.instance.collection('expenses');
+      FirebaseFirestore.instance.collection('userData');
 
   Future<void> updateUserData(List<Category> categories) async {
     List<Map<String, dynamic>> categoriesData = categories.map((category) {
@@ -22,8 +22,7 @@ class DatabaseService {
       int totalCosts = category.expenses.fold(
           0, (int previousValue, expense) => previousValue + expense.cost);
 
-      category.costs =
-          totalCosts; // Aktualizacja pola "costs" w klasie Category
+      category.costs = totalCosts;
 
       return {
         'id': category.id,
@@ -36,11 +35,15 @@ class DatabaseService {
 
     // Create a new document in the "expenses" collection with the user's UID as the document ID
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
-    await userExpenseDoc.set({
+    CollectionReference userExpensesCol = userExpenseDoc.collection('expenses');
+
+    await userExpensesCol.add({
       'id': uid,
       'costs': categories.fold(
           0, (int previousValue, category) => previousValue + category.costs),
       'categories': categoriesData,
     });
   }
+
+  Future<void> getUserData(List<Category> categories) async {}
 }
