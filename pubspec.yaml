@@ -63,6 +63,10 @@ dependencies:
   flutter_walkthrough_screen: ^2.0.2
   syncfusion_flutter_charts: ^21.2.8
   rxdart: ^0.27.7
+  retrofit: ^4.0.1
+  dio: ^5.2.0
+  get_it: ^7.6.0
+  injectable: ^2.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +76,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
+  retrofit_generator: '>=7.0.0 <8.0.0'
+  build_runner: '>=2.3.0 <4.0.0'
+  json_serializable: ^6.6.2
   flutter_lints: ^2.0.0
   
 
@@ -95,7 +102,7 @@ flutter:
     - assets/images/logos/
     - assets/images/svg/
     - assets/images/icons/
-
+    - assets/images/socials/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

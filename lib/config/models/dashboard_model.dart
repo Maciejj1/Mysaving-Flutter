@@ -5,10 +5,10 @@ import 'category_model.dart';
 import 'expense_model.dart';
 
 class DashboardSummary {
-  int id;
-  int saldo;
-  int saving;
-  int expenses;
+  int? id;
+  int? saldo;
+  int? saving;
+  int? expenses;
 
   DashboardSummary({
     required this.id,
@@ -25,6 +25,13 @@ class DashboardSummary {
       'expenses': expenses,
     };
   }
+
+  DashboardSummary.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    saldo = json['saldo'];
+    expenses = json['expenses'];
+    saving = json['saving'];
+  }
 }
 
 class DashboardAnalytics {
@@ -35,16 +42,16 @@ class DashboardAnalytics {
   DashboardAnalytics({required this.summary}) {
     DateTime now = DateTime.now();
 
-    summary = List.generate(7, (index) {
-      DateTime day = now.add(Duration(days: index));
-      return DashboardAnalitycsDay(
-        id: index + 1,
-        saldo: calculateSaldo(day),
-        saving: calculateSaving(day),
-        expenses: calculateTotalExpenses(day),
-        date: day,
-      );
-    });
+    // summary = List.generate(7, (index) {
+    //   DateTime day = now.add(Duration(days: index));
+    //   return DashboardAnalitycsDay(
+    //     id: index + 1,
+    //     saldo: calculateSaldo(day),
+    //     saving: calculateSaving(day),
+    //     expenses: calculateTotalExpenses(day),
+    //     date: day,
+    //   );
+    // });
   }
 
   int calculateTotalExpenses(DateTime day) {
@@ -145,10 +152,10 @@ class DashboardLastExpenses {
 }
 
 class DashboardModel {
-  int id;
-  List<DashboardAnalytics> dashboardAnalytics;
-  List<DashboardSummary> dashboardSummary;
-  List<DashboardLastExpenses> dashboardLastExpenses;
+  String? id;
+  List<DashboardAnalytics>? dashboardAnalytics;
+  List<DashboardSummary>? dashboardSummary;
+  List<DashboardLastExpenses>? dashboardLastExpenses;
 
   DashboardModel({
     required this.id,
@@ -156,15 +163,20 @@ class DashboardModel {
     required this.dashboardSummary,
     required this.dashboardLastExpenses,
   });
-
+  DashboardModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    dashboardAnalytics = json['dashboardAnalytics'];
+    dashboardSummary = json['dashboardSummary'];
+    dashboardLastExpenses = json['dashboardLastExpenses'];
+  }
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'dashboardAnalytics':
-          dashboardAnalytics.map((analytics) => analytics.toMap()).toList(),
+          dashboardAnalytics!.map((analytics) => analytics.toMap()).toList(),
       'dashboardSummary':
-          dashboardSummary.map((summary) => summary.toMap()).toList(),
-      'dashboardLastExpenses': dashboardLastExpenses
+          dashboardSummary!.map((summary) => summary.toMap()).toList(),
+      'dashboardLastExpenses': dashboardLastExpenses!
           .map((lastExpenses) => lastExpenses.toMap())
           .toList(),
     };

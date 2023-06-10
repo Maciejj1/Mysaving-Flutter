@@ -93,6 +93,7 @@ class AuthRepository {
 
         // Add the remaining categories and expenses here
       ];
+
       List<DashboardModel> dashboard = [
         DashboardModel(
             dashboardLastExpenses: [
@@ -102,7 +103,7 @@ class AuthRepository {
               DashboardSummary(
                   id: 1, saldo: 1000, saving: 1000, expenses: 1000),
             ],
-            id: 1,
+            id: "1",
             dashboardAnalytics: [
               DashboardAnalytics(summary: [
                 DashboardAnalitycsDay(

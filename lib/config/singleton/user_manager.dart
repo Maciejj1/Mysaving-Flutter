@@ -13,7 +13,7 @@ class UserManager {
   }
 
   Future<String?> getUID() async {
-    print('usermanager uiddd');
+    print('usermanager uiddd ');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('uid');
   }

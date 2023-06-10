@@ -4,7 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/config/bloc/app_bloc.dart';
+import 'package:mysavingapp/config/repository/dashboard_repository.dart';
+import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_cubit.dart';
+import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_summary_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/charts/dashboard_analitycs.dart';
+
+import 'helpers/dashboard_summary.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -207,10 +212,82 @@ class _DashboardState extends State<Dashboard> {
                 onPressed: () {
                   context.read<AppBloc>().add(AppLogoutRequested());
                 },
-                child: Text('Wyloguj'))
+                child: Text('Wyloguj')),
+            blocBody(),
           ],
         ),
       )),
+    );
+  }
+
+  Widget blocBody() {
+    return BlocProvider(
+      create: (context) => DashboardCubit()..getDashboard(),
+      child: BlocConsumer<DashboardCubit, DashboardState>(
+        listener: (context, state) {
+          if (state is DashboardSuccess) {
+            setState(() {});
+          }
+        },
+        builder: (context, state) {
+          if (state is DashboardLoading) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+          if (state is DashboardError) {
+            return const Center(child: Text('Cos poszlo nie tak'));
+          }
+          if (state is DashboardSuccess) {
+            int index = 0;
+
+            var dashboardList = state.dashboardList;
+            var dashboardsummary = dashboardList![index].dashboardSummary;
+
+            return Column(
+              children: [
+                Text('${dashboardList[index].id}'),
+              ],
+            );
+          }
+          return Container();
+        },
+      ),
+    );
+  }
+
+  Widget summaryBlocBody() {
+    return BlocProvider(
+      create: (context) => DashboardSummaryCubit()..getSummary(),
+      child: BlocConsumer<DashboardSummaryCubit, DashboardSummaryState>(
+        listener: (context, state) {
+          if (state is DashboardSummarySuccess) {
+            setState(() {});
+          }
+        },
+        builder: (context, state) {
+          if (state is DashboardSummaryLoading) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
+          }
+          if (state is DashboardSummaryError) {
+            return const Center(child: Text('Cos poszlo nie tak'));
+          }
+          if (state is DashboardSummarySuccess) {
+            int index = 0;
+            var dashboardSummaryList = state.dashboardSummaryList;
+
+            return Column(
+              children: [
+                Text('${dashboardSummaryList![0].id}'),
+                Text('${dashboardSummaryList![0].expenses}'),
+              ],
+            );
+          }
+          return Container();
+        },
+      ),
     );
   }
 }
