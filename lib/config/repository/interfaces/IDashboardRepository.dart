@@ -4,6 +4,7 @@ import 'package:mysavingapp/config/models/dashboard_model.dart';
 
 abstract class IDashboardRepository {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Future<List<DashboardModel>> getAllDashboard();
+  Future<List<DashboardAnalytics>> getDashboardAnalitycs();
+  Future<List<DashboardLastExpenses>> getDashboardExpenses();
   Future<List<DashboardSummary>> getDashboardSummary();
 }

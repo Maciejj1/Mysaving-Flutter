@@ -26,11 +26,11 @@ class DashboardSummary {
     };
   }
 
-  DashboardSummary.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    saldo = json['saldo'];
-    expenses = json['expenses'];
-    saving = json['saving'];
+  DashboardSummary.fromJson(List<dynamic> json) {
+    id = json[0]['id'] as int;
+    saldo = json[0]['saldo'] as int;
+    expenses = json[0]['expenses'] as int;
+    saving = json[0]['saving'] as int;
   }
 }
 

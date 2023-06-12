@@ -82,7 +82,6 @@ class LoginForm extends StatelessWidget {
             regex.hasMatch(state.email) &&
             state.email.isNotEmpty &&
             state.password.isNotEmpty) {
-          Navigator.pop(context);
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(

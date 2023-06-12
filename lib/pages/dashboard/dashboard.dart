@@ -4,11 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/config/bloc/app_bloc.dart';
+import 'package:mysavingapp/config/models/dashboard_model.dart';
 import 'package:mysavingapp/config/repository/dashboard_repository.dart';
-import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_cubit.dart';
+import 'package:mysavingapp/config/singleton/user_manager.dart';
+import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_analitycs_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_summary_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/charts/dashboard_analitycs.dart';
-
+import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../config/repository/interfaces/IDashboardRepository.dart';
 import 'helpers/dashboard_summary.dart';
 
 class Dashboard extends StatefulWidget {
@@ -20,6 +23,19 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   MySavingImages images = MySavingImages();
+  String? userId;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeUserId();
+  }
+
+  Future<void> initializeUserId() async {
+    userId = await UserManager().getUID();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,52 +229,20 @@ class _DashboardState extends State<Dashboard> {
                   context.read<AppBloc>().add(AppLogoutRequested());
                 },
                 child: Text('Wyloguj')),
-            blocBody(),
+
+            summaryBlocBody(),
+            analitycsBloc()
           ],
         ),
       )),
     );
   }
 
-  Widget blocBody() {
-    return BlocProvider(
-      create: (context) => DashboardCubit()..getDashboard(),
-      child: BlocConsumer<DashboardCubit, DashboardState>(
-        listener: (context, state) {
-          if (state is DashboardSuccess) {
-            setState(() {});
-          }
-        },
-        builder: (context, state) {
-          if (state is DashboardLoading) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
-          if (state is DashboardError) {
-            return const Center(child: Text('Cos poszlo nie tak'));
-          }
-          if (state is DashboardSuccess) {
-            int index = 0;
-
-            var dashboardList = state.dashboardList;
-            var dashboardsummary = dashboardList![index].dashboardSummary;
-
-            return Column(
-              children: [
-                Text('${dashboardList[index].id}'),
-              ],
-            );
-          }
-          return Container();
-        },
-      ),
-    );
-  }
-
   Widget summaryBlocBody() {
     return BlocProvider(
-      create: (context) => DashboardSummaryCubit()..getSummary(),
+      create: (context) =>
+          DashboardSummaryCubit(dashboardRepository: DashboardRepository())
+            ..getSummary(),
       child: BlocConsumer<DashboardSummaryCubit, DashboardSummaryState>(
         listener: (context, state) {
           if (state is DashboardSummarySuccess) {
@@ -275,19 +259,102 @@ class _DashboardState extends State<Dashboard> {
             return const Center(child: Text('Cos poszlo nie tak'));
           }
           if (state is DashboardSummarySuccess) {
-            int index = 0;
-            var dashboardSummaryList = state.dashboardSummaryList;
+            List<DashboardSummary> dashboardSummaryList =
+                state.dashboardSummaryList;
 
-            return Column(
-              children: [
-                Text('${dashboardSummaryList![0].id}'),
-                Text('${dashboardSummaryList![0].expenses}'),
-              ],
-            );
+            if (dashboardSummaryList.isNotEmpty) {
+              int index = 0;
+              DashboardSummary dashboardSummary = dashboardSummaryList[index];
+
+              return Column(
+                children: [
+                  Text('Expenses: ${dashboardSummary.expenses}'),
+                  Text('Saldo: ${dashboardSummary.saldo}'),
+                  Text('Saving: ${dashboardSummary.saving}'),
+                ],
+              );
+            } else {
+              return Text('No dashboard summary available.');
+            }
           }
           return Container();
         },
       ),
     );
+  }
+
+  Widget analitycsBloc() {
+    return BlocProvider(
+        create: (context) =>
+            DashboardAnalitycsCubit(dashboardRepository: DashboardRepository())
+              ..getSummary(),
+        child: BlocConsumer<DashboardAnalitycsCubit, DashboardAnalitycsState>(
+          listener: (context, state) {
+            if (state is DashboardAnalitycsSuccess) {
+              setState(() {});
+            }
+          },
+          builder: (context, state) {
+            if (state is DashboardAnalitycsLoading) {
+              return const Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
+            }
+            if (state is DashboardAnalitycsError) {
+              return const Center(child: Text('Cos poszlo nie tak'));
+            }
+            if (state is DashboardAnalitycsSuccess) {
+              List<DashboardAnalytics> dashboardExpenses =
+                  state.dashboardExpenses;
+
+              if (dashboardExpenses.isNotEmpty) {
+                List<DashboardAnalitycsDay> last7DaysExpenses =
+                    dashboardExpenses
+                        .expand((analytics) => analytics.summary)
+                        .take(7)
+                        .toList();
+
+                return Container(
+                  height: 300,
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    series: <ChartSeries>[
+                      ColumnSeries<DashboardAnalitycsDay, String>(
+                        dataSource: last7DaysExpenses,
+                        xValueMapper: (DashboardAnalitycsDay day, _) =>
+                            day.date.toString(),
+                        yValueMapper: (DashboardAnalitycsDay day, _) =>
+                            day.expenses,
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Text('No analytics data available.');
+              }
+            }
+            return Container();
+          },
+        ));
+  }
+}
+
+class DashboardAnalitycsCubit extends Cubit<DashboardAnalitycsState> {
+  final IDashboardRepository dashboardRepository;
+
+  DashboardAnalitycsCubit({required this.dashboardRepository})
+      : super(DashboardAnalitycsInitial());
+
+  Future<void> getSummary() async {
+    emit(DashboardAnalitycsLoading());
+
+    try {
+      final results = await dashboardRepository.getDashboardAnalitycs();
+      emit(DashboardAnalitycsSuccess(dashboardExpenses: results));
+    } catch (error, stacktrace) {
+      print(error.toString());
+      print(stacktrace.toString());
+      emit(DashboardAnalitycsError(error: 'Something went wrong'));
+    }
   }
 }

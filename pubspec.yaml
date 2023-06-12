@@ -61,7 +61,7 @@ dependencies:
   gap: ^3.0.0
   introduction_screen: ^3.1.8
   flutter_walkthrough_screen: ^2.0.2
-  syncfusion_flutter_charts: ^21.2.8
+  syncfusion_flutter_charts: ^20.4.52
   rxdart: ^0.27.7
   retrofit: ^4.0.1
   dio: ^5.2.0

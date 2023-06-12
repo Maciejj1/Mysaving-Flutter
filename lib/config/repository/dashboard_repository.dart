@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:mysavingapp/config/repository/dashboard/IDashboardRepository.dart';
-
+import 'package:mysavingapp/config/repository/interfaces/IDashboardRepository.dart';
+import 'package:intl/intl.dart';
 import '../models/dashboard_model.dart';
 import '../singleton/user_manager.dart';
 
@@ -77,84 +77,84 @@ class DashboardRepository extends IDashboardRepository {
     });
   }
 
-  Future<List<DashboardModel>> getDashboard() async {
-    UserManager userManager = UserManager();
-    String? userID;
-    userID = await userManager.getUID();
-    final userDashboardDoc = expenseCollection.doc(userID);
-    final CollectionReference userDahboardPath =
-        userDashboardDoc.collection('dashboard');
-
-    try {
-      QuerySnapshot snapshot = await userDahboardPath.get();
-      if (snapshot.docs.isNotEmpty) {
-        List<DashboardModel> dashboardList = snapshot.docs
-            .map((DocumentSnapshot document) => DashboardModel.fromJson(
-                document.data() as Map<String, dynamic>))
-            .toList();
-        return dashboardList;
-      } else {
-        return [];
-      }
-    } catch (e, stacktrace) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<List<DashboardModel>> getAllDashboard() async {
-    UserManager userManager = UserManager();
-    String? userID;
-    userID = await userManager.getUID();
-    final userDashboardDoc = expenseCollection.doc(userID);
-    final CollectionReference userDahboardPath =
-        userDashboardDoc.collection('dashboard');
-    List<DashboardModel> dashboardList = [];
-    final result = await firestore
-        .collection('userData')
-        .doc(userID)
-        .collection('dashboard')
-        .get();
-    for (var snapshot in result.docs) {
-      DashboardModel dashboardModel = DashboardModel.fromJson(snapshot.data());
-      dashboardModel.id = snapshot.id;
-      dashboardList.add(dashboardModel);
-    }
-    return dashboardList;
-  }
-
   @override
   Future<List<DashboardSummary>> getDashboardSummary() async {
     UserManager userManager = UserManager();
     String? userID;
     userID = await userManager.getUID();
-    final userDashboardDoc = expenseCollection.doc(userID);
-    final CollectionReference userDahboardPath =
-        userDashboardDoc.collection('dashboard');
     List<DashboardSummary> dashboardList = [];
     final result = await firestore
         .collection('userData')
         .doc(userID)
         .collection('dashboard')
-        .doc(uid)
         .get();
+    for (var dashboardDoc in result.docs) {
+      final dashboardData = dashboardDoc.data();
+      final dashboardSummary =
+          dashboardData['dashboards'][0]['dashboardSummary'];
 
-    if (result.exists) {
-      final data = result.data();
-      if (data != null) {
-        final dashboardAnalyticsList =
-            data['dashboardAnalytics'] as List<dynamic>;
-        final dashboardLastExpensesList =
-            data['dashboardLastExpenses'] as List<dynamic>;
-        final dashboardSummaryList = data['dashboardSummary'] as List<dynamic>;
+      print('DashboardSummary: $dashboardSummary');
 
-        // Use or process the lists according to your needs
-        print(dashboardAnalyticsList);
-        print(dashboardLastExpensesList);
-        print(dashboardSummaryList);
+      if (dashboardSummary != null) {
+        DashboardSummary dashboardSummaryModel =
+            DashboardSummary.fromJson(dashboardSummary);
+
+        dashboardList.add(dashboardSummaryModel);
       }
     }
 
     return dashboardList;
+  }
+
+  @override
+  Future<List<DashboardAnalytics>> getDashboardAnalitycs() async {
+    UserManager userManager = UserManager();
+    String? userID;
+    userID = await userManager.getUID();
+    List<DashboardAnalytics> dashboardList = [];
+    final result = await firestore
+        .collection('userData')
+        .doc(userID)
+        .collection('dashboard')
+        .get();
+    for (var dashboardDoc in result.docs) {
+      final dashboardData = dashboardDoc.data();
+      final dashboardAnalitycs =
+          dashboardData['dashboards'][0]['dashboardAnalitycs'];
+
+      print('DashboardAnalitycs: $dashboardAnalitycs');
+
+      if (dashboardAnalitycs != null) {
+        List<DashboardAnalitycsDay> summaryList = [];
+
+        for (var dayData in dashboardAnalitycs[0]['summary']) {
+          String dayName = dayData['date'];
+          DateTime now = DateTime.now();
+          int dayIndex = DateFormat('EEE').parse(dayName).weekday;
+          DateTime date = now.subtract(Duration(days: now.weekday - dayIndex));
+          DashboardAnalitycsDay day = DashboardAnalitycsDay(
+            id: dayData['id'],
+            saldo: dayData['saldo'],
+            saving: dayData['saving'],
+            expenses: dayData['expenses'],
+            date: date,
+          );
+          summaryList.add(day);
+        }
+
+        DashboardAnalytics dashboardAnalytics = DashboardAnalytics(
+          summary: summaryList,
+        );
+
+        dashboardList.add(dashboardAnalytics);
+      }
+    }
+
+    return dashboardList;
+  }
+
+  @override
+  Future<List<DashboardLastExpenses>> getDashboardExpenses() {
+    throw UnimplementedError();
   }
 }

@@ -31,14 +31,14 @@ class _ExpensesState extends State<Expenses> {
     // Use async-await function to get the data
     final data = await FirebaseFirestore.instance
         .collection("expenses")
-        .doc('$uid')
+        .doc(uid)
         .collection("expenses")
         .get(); // Get the data
 
     // Processing data
     List<Map<String, dynamic>> newExpenses = [];
     data.docs.forEach((doc) {
-      newExpenses.add(doc.data() as Map<String, dynamic>);
+      newExpenses.add(doc.data());
     });
 
     setState(() {
@@ -57,6 +57,7 @@ class _ExpensesState extends State<Expenses> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text('Witam'),
           Container(
             height: 100,
             child: ListView.builder(

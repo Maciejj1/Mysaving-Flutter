@@ -1,28 +1,30 @@
 part of 'dashboard_summary_cubit.dart';
 
-abstract class DashboardSummaryState {
-  DashboardSummaryState();
+abstract class DashboardSummaryState extends Equatable {
+  const DashboardSummaryState();
+
+  @override
+  List<Object> get props => [];
 }
 
-class DashboardSummaryInitial extends DashboardSummaryState {
-  DashboardSummaryInitial();
-}
+class DashboardSummaryInitial extends DashboardSummaryState {}
 
-class DashboardSummaryLoading extends DashboardSummaryState {
-  DashboardSummaryLoading();
-}
+class DashboardSummaryLoading extends DashboardSummaryState {}
 
 class DashboardSummarySuccess extends DashboardSummaryState {
-  List<DashboardSummary>? dashboardSummaryList;
+  final List<DashboardSummary> dashboardSummaryList;
+
   DashboardSummarySuccess({required this.dashboardSummaryList});
+
+  @override
+  List<Object> get props => [dashboardSummaryList];
 }
 
 class DashboardSummaryError extends DashboardSummaryState {
-  String? error;
-  DashboardSummaryError({required this.error});
-}
+  final String error;
 
-class DashboardSummaryRefres extends DashboardSummaryState {
-  List<DashboardSummary>? dashboardSummaryList;
-  DashboardSummaryRefres({required this.dashboardSummaryList});
+  DashboardSummaryError({required this.error});
+
+  @override
+  List<Object> get props => [error];
 }
