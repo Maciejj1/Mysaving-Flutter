@@ -5,14 +5,13 @@ import 'package:mysavingapp/config/models/premium_user_model.dart';
 import 'package:mysavingapp/config/models/profile_model.dart';
 import 'package:mysavingapp/config/models/settings_model.dart';
 import 'package:mysavingapp/config/repository/dashboard_repository.dart';
-import 'package:mysavingapp/config/repository/database.dart';
+import 'package:mysavingapp/config/repository/expenses_repository.dart';
 import 'package:mysavingapp/config/repository/premium_user_repository.dart';
 import 'package:mysavingapp/config/repository/profile_repository.dart';
 import 'package:mysavingapp/config/repository/settings_repository.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../models/category_model.dart';
-import '../models/expense_model.dart';
+import '../models/expenses_model.dart';
 import '../models/user_model.dart';
 import '../singleton/user_manager.dart';
 
@@ -193,7 +192,7 @@ class AuthRepository {
       String uid = userCredential.user!.uid;
       UserManager().setUID(uid);
 
-      await DatabaseService(uid: uid).updateUserData(categories);
+      await ExpensesRepository(uid: uid).updateUserData(categories);
       await DashboardRepository(uid: uid).updateUserData(dashboard);
       await ProfileRepository(uid: uid).updateUserData(profile);
       await PremiumUserRepository(uid: uid).updateUserData(premium);

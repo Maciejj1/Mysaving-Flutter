@@ -140,7 +140,6 @@ class ProfileRepository extends IProfileRepository {
       int profileId = profiles[0].id;
 
       final result = await profileCollection.doc(userID).collection('profile');
-      for (var profileDoc in result.docs) {}
     }
   }
 }

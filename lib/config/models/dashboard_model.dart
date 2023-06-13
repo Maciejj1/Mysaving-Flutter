@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-import 'category_model.dart';
-import 'expense_model.dart';
+import 'expenses_model.dart';
 
 class DashboardSummary {
   int? id;

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/expenses_repository.dart';
-import 'package:mysavingapp/pages/expenses/config/cubit/expenses_cubit.dart';
-import '../../config/models/expenses_model.dart';
 
-class ExpensesScreen extends StatefulWidget {
-  const ExpensesScreen({Key? key});
+import '../../config/models/expenses_model.dart';
+import '../../config/repository/expenses_repository.dart';
+import 'config/cubit/expenses_cubit.dart';
+
+class ExpensesPage extends StatefulWidget {
+  const ExpensesPage({Key? key});
 
   @override
-  State<ExpensesScreen> createState() => _ExpensesScreenState();
+  State<ExpensesPage> createState() => _ExpensesPageState();
 }
 
-class _ExpensesScreenState extends State<ExpensesScreen> {
-  List<Category>? expenseData;
-
+class _ExpensesPageState extends State<ExpensesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

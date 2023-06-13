@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   static List<Widget> _widgetOptions = <Widget>[
     Dashboard(),
-    Expenses(),
+    ExpensesScreen(),
     Profile()
   ];
   int _selectedIndex = 0;
