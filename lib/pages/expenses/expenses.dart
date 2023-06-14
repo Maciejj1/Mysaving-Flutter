@@ -1,136 +1,214 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysavingapp/config/repository/expenses_repository.dart';
-import 'package:mysavingapp/pages/expenses/config/cubit/expenses_cubit.dart';
+import 'package:mysavingapp/pages/expenses/config/cubit/expense_cubit.dart';
 import '../../config/models/expenses_model.dart';
 
 class ExpensesScreen extends StatefulWidget {
-  const ExpensesScreen({Key? key});
+  const ExpensesScreen({super.key});
 
   @override
   State<ExpensesScreen> createState() => _ExpensesScreenState();
 }
 
 class _ExpensesScreenState extends State<ExpensesScreen> {
-  List<Category>? expenseData;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: SizedBox(child: expenseBloc()),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              expenseBloc(),
+            ],
+          ),
+        ),
       ),
-    ));
+    );
   }
 
   Widget expenseBloc() {
     return BlocProvider(
-      create: (context) => ExpensesCubit(
-        expensesRepository: ExpensesRepository(),
-      ),
-      child: BlocConsumer<ExpensesCubit, ExpensesState>(
+      create: (context) =>
+          ExpenseCubit(dashboardRepository: ExpensesRepository())..getSummary(),
+      child: BlocConsumer<ExpenseCubit, ExpenseState>(
         listener: (context, state) {},
         builder: (context, state) {
-          if (state is ExpensesLoading) {
+          if (state is ExpenseLoading) {
             return Center(
               child: CircularProgressIndicator.adaptive(),
             );
           }
-          if (state is ExpensesError) {
+          if (state is ExpenseError) {
             return Center(
               child: Text('Cos poszlo nie tak'),
             );
           }
-          if (state is ExpensesSuccess) {
-            List<Expenses> expensesList = state.expensesList;
+          if (state is ExpenseSuccess) {
+            List<Expenses> expensesList = state.expenses;
             if (expensesList.isNotEmpty) {
               int index = 0;
               Expenses expenses = expensesList[index];
+              double calculatePercentage(double costs, int totalCosts) {
+                return (costs / totalCosts) * 100.0;
+              }
 
               List<Category> categories = expensesList
                   .expand((element) => element.categories)
                   .take(5)
                   .toList();
+
               return Container(
-                height: 300,
-                width: 300,
-                color: Colors.amberAccent,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
-                    ListView.builder(
+                    Container(
+                      height: 160,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
                         itemCount: categories.length,
-                        itemBuilder: (context, i) {
-                          return ListTile(
-                            title: Text('Category ID: ${categories[index].id}'),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Costs: ${categories[index].costs}'),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(),
-                                  itemCount: categories[index].expenses.length,
-                                  itemBuilder: (context, j) {
-                                    final expenseItem =
-                                        categories[index].expenses[j];
-                                    return ListTile(
-                                      title: Text('Name: ${expenseItem.name}'),
-                                      subtitle:
-                                          Text('Cost: ${expenseItem.cost} PLN'),
-                                    );
-                                  },
+                        itemBuilder: (context, index) {
+                          Category category = categories[index];
+                          double totalCategoryCosts = category.expenses!
+                              .map((expense) => expense.cost ?? 0)
+                              .reduce((a, b) => a + b)
+                              .toDouble();
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    Container(
+                                      width: 70,
+                                      height: 60,
+                                      margin: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.blue,
+                                      ),
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.category,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 60,
+                                      alignment: Alignment.center,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            category.name ?? '',
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${calculatePercentage(totalCategoryCosts, expenses.costs ?? 0).toStringAsFixed(1)}%',
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    Text('Expenses ID: ${expensesList[index].id ?? ''}'),
+                    Text('Total Costs: ${expensesList[index].costs ?? ''}'),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          final category = categories[index];
+                          return GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    child: ListView.builder(
+                                      itemCount: category.expenses!.length,
+                                      itemBuilder:
+                                          (BuildContext context, index) {
+                                        Expense expense =
+                                            category.expenses![index];
+                                        return Card(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                  'Expense Name: ${expense.name}'),
+                                              Text(
+                                                  'Expense Cost: ${expense.cost}'),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: SizedBox(
+                              width: 380,
+                              height: 60,
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                'Category Name: ${category.name}'),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 20),
+                                        child: Text(
+                                            'Costs: ${category.costs ?? ''}'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           );
-                        }),
-                    Text('${expensesList[index].id}'),
-                    Text('${expensesList[index].costs}'),
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );
             }
+            return Container();
           }
           return Container();
         },
       ),
     );
-  }
-}
-
-class ExpensesForm extends StatelessWidget {
-  const ExpensesForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class ExpensesCategoriesImages extends StatelessWidget {
-  const ExpensesCategoriesImages({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class ExpensesCategories extends StatelessWidget {
-  const ExpensesCategories({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class ExpensesAddForm extends StatelessWidget {
-  const ExpensesAddForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

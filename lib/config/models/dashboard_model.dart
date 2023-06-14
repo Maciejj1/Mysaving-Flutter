@@ -125,7 +125,7 @@ class DashboardLastExpenses {
     List<Expense> allExpenses = [];
 
     for (Category category in categories) {
-      allExpenses.addAll(category.expenses);
+      allExpenses.addAll(category.expenses as Iterable<Expense>);
     }
 
     return allExpenses;
@@ -137,7 +137,7 @@ class DashboardLastExpenses {
     List<Expense> allExpenses = getAllExpenses();
 
     for (Expense expense in allExpenses) {
-      total += expense.cost;
+      total += expense.cost!;
     }
 
     return total;

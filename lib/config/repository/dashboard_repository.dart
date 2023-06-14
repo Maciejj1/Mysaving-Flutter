@@ -33,7 +33,7 @@ class DashboardRepository extends IDashboardRepository {
               'id': category.id,
               'name': category.name,
               'url': category.url,
-              'expenses': category.expenses.map((expense) {
+              'expenses': category.expenses!.map((expense) {
                 return {
                   'name': expense.name,
                   'cost': expense.cost,

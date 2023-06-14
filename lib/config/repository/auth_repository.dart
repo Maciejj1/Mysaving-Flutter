@@ -180,13 +180,13 @@ class AuthRepository {
       int calculateTotalCosts(int categoryId) {
         Category category =
             categories.firstWhere((cat) => cat.id == categoryId);
-        int totalCosts = category.expenses.fold(
-            0, (int previousValue, expense) => previousValue + expense.cost);
+        int totalCosts = category.expenses!.fold(
+            0, (int previousValue, expense) => previousValue + expense.cost!);
         return totalCosts;
       }
 
       categories = categories.map((category) {
-        category.costs = calculateTotalCosts(category.id);
+        category.costs = calculateTotalCosts(category.id!);
         return category;
       }).toList();
       String uid = userCredential.user!.uid;

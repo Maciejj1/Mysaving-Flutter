@@ -14,15 +14,15 @@ class ExpensesRepository extends IExpensesRepository {
   Future<void> updateUserData(List<Category> categories) async {
     List<Map<String, dynamic>> categoriesData = categories.map((category) {
       List<Map<String, dynamic>> expensesData =
-          category.expenses.map((expense) {
+          category.expenses!.map((expense) {
         return {
           'name': expense.name,
           'cost': expense.cost,
         };
       }).toList();
 
-      int totalCosts = category.expenses.fold(
-          0, (int previousValue, expense) => previousValue + expense.cost);
+      int totalCosts = category.expenses!.fold(
+          0, (int previousValue, expense) => previousValue + expense.cost!);
 
       category.costs = totalCosts;
 
@@ -42,7 +42,7 @@ class ExpensesRepository extends IExpensesRepository {
     await userExpensesCol.add({
       'id': uid,
       'costs': categories.fold(
-          0, (int previousValue, category) => previousValue + category.costs),
+          0, (int previousValue, category) => previousValue + category.costs!),
       'categories': categoriesData,
     });
   }
@@ -71,25 +71,24 @@ class ExpensesRepository extends IExpensesRepository {
 
       if (expensesCategories != null) {
         List<Category> categoryList = [];
-        int id = int.parse(expensesData['id']);
-        int costs = int.parse(expensesData['costs']);
         for (var categoryData in expensesCategories) {
-          String categoryName = categoryData['name'];
-          int costs = int.parse(categoryData['costs']);
-          String url = categoryData['url'];
-          int id = int.parse(categoryData['id']);
+          List<Expense> expenseList = [];
+          for (var expenseData in categoryData['expenses']) {
+            print("Expense: $expenseData");
+            Expense expense = Expense.fromJson(expenseData);
+            expenseList.add(expense);
+          }
 
-          Category category = Category(
-              id: id,
-              name: categoryName,
-              url: url,
-              costs: costs,
-              expenses: categoryData['expenses']);
+          Category category = Category.fromJson(categoryData);
+          category.expenses = expenseList;
           categoryList.add(category);
         }
 
-        Expenses userExpenses =
-            Expenses(id: id, costs: costs, categories: categoryList);
+        Expenses userExpenses = Expenses(
+          id: int.tryParse(expensesData['id'].toString()),
+          costs: expensesData['costs'],
+          categories: categoryList,
+        );
         expensesList.add(userExpenses);
       }
     }

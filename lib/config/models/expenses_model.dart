@@ -1,16 +1,27 @@
-import 'package:flutter/foundation.dart';
-
 class Expenses {
-  int id;
-  int costs;
-  List<Category> categories;
+  int? id;
+  int? costs;
+  List<Category> categories = [];
 
-  Expenses({required this.id, required this.costs, required this.categories});
+  Expenses({required this.id, required this.costs, List<Category>? categories})
+      : categories = categories ?? [];
+
+  Map<String, dynamic> toMap() {
+    return {'id': id, 'costs': costs, 'categories': categories};
+  }
+
+  Expenses.fromJson(Map<String, dynamic> json) {
+    id = json['id'] as int?;
+    costs = json['costs'] as int?;
+    categories = (json['categories'] as List<dynamic>)
+        .map((cate) => Category.fromJson(cate))
+        .toList();
+  }
 }
 
 class Expense {
-  String name;
-  int cost;
+  String? name;
+  int? cost;
 
   Expense({required this.name, required this.cost});
 
@@ -20,14 +31,19 @@ class Expense {
       'cost': cost,
     };
   }
+
+  Expense.fromJson(Map<String, dynamic> json) {
+    name = json['name']?.toString() ?? "Nazwa";
+    cost = json['cost'];
+  }
 }
 
 class Category {
-  int id;
-  String name;
-  String url;
-  int costs;
-  List<Expense> expenses;
+  int? id;
+  String? name;
+  String? url;
+  int? costs;
+  List<Expense>? expenses;
 
   Category({
     required this.id,
@@ -43,15 +59,17 @@ class Category {
       'name': name,
       'url': url,
       'costs': costs,
-      'expenses': expenses.map((expense) => expense.toMap()).toList(),
+      'expenses': expenses!.map((expense) => expense.toMap()).toList(),
     };
   }
 
-  // Category.fromJson(List<dynamic> json) {
-  //   id = json[0]['id'] as int;
-  //   name = json[0]['name'];
-  //   url = json[0]['url'];
-  //   costs = json[0]['costs'];
-  //   expenses = json[0]['expenses'];
-  // }
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'] as int;
+    name = json['name'];
+    url = json['url'];
+    costs = json['costs'];
+    expenses = (json['expenses'] as List<dynamic>)
+        .map((expense) => Expense.fromJson(expense))
+        .toList();
+  }
 }
