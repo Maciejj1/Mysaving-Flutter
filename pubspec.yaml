@@ -67,6 +67,8 @@ dependencies:
   dio: ^5.2.0
   get_it: ^7.6.0
   injectable: ^2.1.2
+  unicons: ^2.1.1
+  font_awesome_flutter: ^10.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/config/models/dashboard_model.dart';
+import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_currency_picker.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_summary_row.dart';
 
 import '../../../config/repository/dashboard_repository.dart';
@@ -45,68 +47,111 @@ class DashboardSummaryPage extends StatelessWidget {
             if (dashboardSummaryList.isNotEmpty) {
               int index = 0;
               DashboardSummary dashboardSummary = dashboardSummaryList[index];
-
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 150,
+                    height: 170,
                     width: 180,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.redAccent),
+                        color: MySavingColors.defaultBlueButton),
                     child: Column(children: [
                       Expanded(
                           child: Column(
                         children: [
-                          Text('Twoje oszczednosci'),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Twoje oszczednosci',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
                           Gap(30),
-                          Text('${dashboardSummary.saving}'),
+                          Text(
+                            '${dashboardSummary.saving} PLN',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              width: 200,
+                              height: 49,
+                              child: DashboardCurrencyPicker(),
+                            ),
+                          )
                         ],
                       )),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 20,
-                              color: Colors.white,
-                              child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Icon(Icons.arrow_drop_down)),
-                            )
-                          ],
-                        ),
-                      )
                     ]),
                   ),
                   Gap(20),
                   Container(
-                    height: 150,
+                    height: 170,
                     width: 180,
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.redAccent),
+                        color: Colors.white),
                     child: Column(children: [
                       Expanded(
                           child: Column(
                         children: [
-                          Text('Podsumowanie'),
-                          Gap(5),
-                          DashboardSummaryRow(
-                              titleText: 'Saldo',
-                              costs: '${dashboardSummary.saldo}',
-                              icon: Icons.abc),
-                          DashboardSummaryRow(
-                              titleText: 'Oszczędności',
-                              costs: '${dashboardSummary.saving}',
-                              icon: Icons.account_balance_wallet),
-                          DashboardSummaryRow(
-                              titleText: 'Wydatki',
-                              costs: '${dashboardSummary.expenses}',
-                              icon: Icons.access_alarm)
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Podsumowanie',
+                                  style: TextStyle(
+                                      color: Color(0xFFC0C0C0), fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                              width: 100,
+                              child: Column(
+                                children: [
+                                  DashboardSummaryRow(
+                                    titleText: 'Saldo',
+                                    costs: '${dashboardSummary.saldo}',
+                                    icon: Icons.abc,
+                                    iconColor: MySavingColors.defaultBlueButton,
+                                    textcolor: MySavingColors.defaultBlueButton,
+                                  ),
+                                  DashboardSummaryRow(
+                                    titleText: 'Oszczędności',
+                                    costs: '${dashboardSummary.saving}',
+                                    icon: Icons.account_balance_wallet,
+                                    iconColor: MySavingColors.defaultGreen,
+                                    textcolor: MySavingColors.defaultGreen,
+                                  ),
+                                  DashboardSummaryRow(
+                                    titleText: 'Wydatki',
+                                    costs: '${dashboardSummary.expenses}',
+                                    icon: Icons.access_alarm,
+                                    iconColor: MySavingColors.defaultRed,
+                                    textcolor: MySavingColors.defaultRed,
+                                  )
+                                ],
+                              ))
                         ],
                       )),
                     ]),

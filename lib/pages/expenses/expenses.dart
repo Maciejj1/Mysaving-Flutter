@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysavingapp/common/helpers/mysaving_nav.dart';
 import 'package:mysavingapp/config/repository/expenses_repository.dart';
 import 'package:mysavingapp/pages/expenses/config/cubit/expense_cubit.dart';
 import 'package:mysavingapp/pages/expenses/helpers/expenses_categories_column_list.dart';
@@ -23,6 +24,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              MySavingUpNav(),
               ExpensesCategoriesRowList(),
               ExpensesCategoriesColumnList()
             ],

@@ -66,7 +66,7 @@ class ProfileImage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "Good Morning,",
+                        "Dzień dobry,🔆",
                         style: TextStyle(fontSize: 18),
                       ),
                       Text(
