@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/helpers/profile_nav.dart';
 import 'package:mysavingapp/pages/profile/helpers/profile_buttons.dart';
 import 'package:mysavingapp/pages/profile/helpers/profile_image.dart';
 
@@ -22,7 +23,13 @@ class _ProfileState extends State<Profile> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [ProfileImage(), Gap(20), ProfileButtons()],
+            children: [
+              ProfileNav(),
+              Gap(20),
+              ProfileImage(),
+              Gap(20),
+              ProfileButtons()
+            ],
           ),
         ),
       ),

@@ -71,7 +71,8 @@ class ProfileImage extends StatelessWidget {
                       ),
                       Text(
                         "${profiles[0].name}",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

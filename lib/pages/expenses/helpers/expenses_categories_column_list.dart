@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 import '../../../config/models/expenses_model.dart';
 import '../../../config/repository/expenses_repository.dart';
@@ -46,47 +48,88 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                 .toList();
 
             return Container(
-              height: 400,
+              height: 300,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
-                  Text('Expenses ID: ${expensesList[index].id ?? ''}'),
-                  Text('Total Costs: ${expensesList[index].costs ?? ''}'),
-                  Expanded(
+                  Text(
+                    'Kategorie wydatków',
+                    style: TextStyle(color: MySavingColors.defaultGreyText),
+                  ),
+                  // Text('Expenses ID: ${expensesList[index].id ?? ''}'),
+                  // Text('Total Costs: ${expensesList[index].costs ?? ''}'),
+                  Gap(10),
+                  SizedBox(
+                    width: 370,
+                    height: 260,
                     child: ListView.builder(
                       itemCount: categories.length,
                       itemBuilder: (context, index) {
                         final category = categories[index];
                         return GestureDetector(
                           onTap: () {
-                            showDialog(
+                            showModalBottomSheet(
                               context: context,
-                              builder: (context) {
-                                return Dialog(
-                                  child: ListView.builder(
-                                    itemCount: category.expenses!.length,
-                                    itemBuilder: (BuildContext context, index) {
-                                      Expense expense =
-                                          category.expenses![index];
-                                      return Card(
+                              backgroundColor: Colors.white,
+                              builder: (BuildContext context) {
+                                return ListView.builder(
+                                  itemCount: category.expenses!.length,
+                                  itemBuilder: (BuildContext context, index) {
+                                    Expense expense = category.expenses![index];
+                                    return Container(
+                                      width: 200,
+                                      height: 50,
+                                      child: Card(
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                                'Expense Name: ${expense.name}'),
-                                            Text(
-                                                'Expense Cost: ${expense.cost}'),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child: Text(
+                                                      '${expense.name}',
+                                                      style: TextStyle(
+                                                        color: MySavingColors
+                                                            .defaultBlueButton,
+                                                        fontSize: 16,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 20),
+                                                  child: Text(
+                                                    '-${expense.cost} PLN',
+                                                    style: TextStyle(
+                                                      color: MySavingColors
+                                                          .defaultRed,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             );
                           },
-                          child: SizedBox(
-                            width: 380,
-                            height: 60,
+                          child: Container(
+                            width: 200,
+                            height: 50,
                             child: Card(
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
@@ -94,16 +137,29 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                              'Category Name: ${category.name}'),
+                                            '${category.name}',
+                                            style: TextStyle(
+                                              color: MySavingColors
+                                                  .defaultBlueButton,
+                                              fontSize: 16,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 20),
                                       child: Text(
-                                          'Costs: ${category.costs ?? ''}'),
+                                        '-${category.costs ?? ''} PLN',
+                                        style: TextStyle(
+                                          color: MySavingColors.defaultRed,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),

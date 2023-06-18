@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 import '../../../config/models/expenses_model.dart';
 import '../../../config/repository/expenses_repository.dart';
@@ -47,64 +48,64 @@ class ExpensesCategoriesRowList extends StatelessWidget {
                 .take(5)
                 .toList();
 
-            return Column(
-              children: [
-                Container(
-                  height: 160,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      Category category = categories[index];
-                      double totalCategoryCosts = category.expenses!
-                          .map((expense) => expense.cost ?? 0)
-                          .reduce((a, b) => a + b)
-                          .toDouble();
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Column(
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Container(
+                    height: 120,
+                    width: 380,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        Category category = categories[index];
+                        double totalCategoryCosts = category.expenses!
+                            .map((expense) => expense.cost ?? 0)
+                            .reduce((a, b) => a + b)
+                            .toDouble();
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
                               children: [
-                                SizedBox(
-                                  height: 30,
-                                ),
                                 Container(
-                                  width: 70,
-                                  height: 60,
-                                  margin: EdgeInsets.all(8),
+                                  width: 75,
+                                  height: 65,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.blue,
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
                                   ),
                                   child: Stack(
                                     alignment: Alignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.category,
-                                        color: Colors.white,
-                                      ),
+                                      SizedBox(
+                                          width: 35,
+                                          child: Image.asset(category.url!))
                                     ],
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
                                 Container(
-                                  width: 60,
+                                  width: 75,
                                   alignment: Alignment.center,
                                   child: Column(
                                     children: [
                                       Text(
-                                        category.name ?? '',
-                                        style: TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
                                         '${calculatePercentage(totalCategoryCosts, expenses.costs ?? 0).toStringAsFixed(1)}%',
                                         style: TextStyle(
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.bold,
+                                          color: MySavingColors.defaultGreyText,
                                         ),
                                       ),
                                     ],
@@ -112,13 +113,13 @@ class ExpensesCategoriesRowList extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
-                        ],
-                      );
-                    },
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }
           return Container();

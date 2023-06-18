@@ -9,6 +9,7 @@ import 'package:mysavingapp/config/repository/dashboard_repository.dart';
 import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_analitycs_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_summary_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/dashboard_analitycs.dart';
+import 'package:mysavingapp/pages/dashboard/helpers/dashboard_buttons.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/dashboard_summary.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../config/repository/interfaces/IDashboardRepository.dart';
@@ -31,6 +32,8 @@ class _DashboardState extends State<Dashboard> {
               MySavingUpNav(),
               Gap(20),
               DashboardSummaryPage(),
+              Gap(20),
+              DashboardButtons(),
               Gap(20),
               DashboardAnalitycsPage()
             ],

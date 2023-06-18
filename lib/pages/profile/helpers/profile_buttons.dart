@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 import '../../../config/bloc/app_bloc.dart';
 
@@ -12,39 +13,85 @@ class ProfileButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ElevatedButton(
-          onPressed: () {
-            // Otwórz formularz do zmiany hasła
-            _openPasswordForm(context);
-          },
-          child: Text("Zmień hasło"),
+        Container(
+          height: 44,
+          width: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF444FFF)),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
+              onPressed: () {
+                _openNameForm(context);
+              },
+              child: Text('Zmień Nazwę')),
         ),
-        ElevatedButton(
-          onPressed: () {
-            // Otwórz formularz do zmiany emaila
-            _openEmailForm(context);
-          },
-          child: Text("Zmień email"),
+        Gap(15),
+        Container(
+          height: 44,
+          width: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF444FFF)),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
+              onPressed: () {
+                _openPasswordForm(context);
+              },
+              child: Text('Zmień Hasło')),
         ),
-        ElevatedButton(
-          onPressed: () {
-            // Otwórz formularz do zmiany nazwy
-            _openNameForm(context);
-          },
-          child: Text("Zmień nazwę"),
+        Gap(15),
+        Container(
+          height: 44,
+          width: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF444FFF)),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
+              onPressed: () {
+                _openEmailForm(context);
+              },
+              child: Text('Zmień Email')),
         ),
-        ElevatedButton(
-          onPressed: () {
-            // Otwórz formularz do ustawienia zdjęcia profilowego
-            _openPictureForm(context);
-          },
-          child: Text("Ustaw zdjęcie"),
+        Gap(15),
+        Container(
+          height: 44,
+          width: 300,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF444FFF)),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
+              onPressed: () {
+                _openPictureForm(context);
+              },
+              child: Text('Zmień Zdjęcie')),
         ),
-        ElevatedButton(
-            onPressed: () {
-              context.read<AppBloc>().add(AppLogoutRequested());
-            },
-            child: Text('Wyloguj')),
+        Gap(15),
+        Container(
+          height: 44,
+          width: 250,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Color(0xFF444FFF)),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent),
+              onPressed: () {
+                context.read<AppBloc>().add(AppLogoutRequested());
+              },
+              child: Text('Wyloguj')),
+        ),
       ],
     );
   }

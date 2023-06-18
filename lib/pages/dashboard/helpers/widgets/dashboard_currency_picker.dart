@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 class DashboardCurrencyPicker extends StatefulWidget {
   const DashboardCurrencyPicker({super.key});
@@ -21,14 +22,22 @@ class _DashboardCurrencyPickerState extends State<DashboardCurrencyPicker> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-              width: 65,
-              height: 20,
-              color: Colors.white,
+              width: 72,
+              height: 35,
+              decoration: BoxDecoration(
+                color: Colors.white, //background color of dropdown button
+
+                borderRadius: BorderRadius.circular(
+                    12), //border raiuds of dropdown button
+              ),
               child: DropdownButton<String>(
                 value: dropdownValue,
-                icon: const Icon(Icons.arrow_downward),
+                iconSize: 0,
                 elevation: 6,
-                style: const TextStyle(color: Colors.deepPurple),
+                style: TextStyle(
+                    color: MySavingColors.defaultBlueButton,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
                 onChanged: (String? value) {
                   // This is called when the user selects an item.
                   setState(() {
@@ -38,7 +47,20 @@ class _DashboardCurrencyPickerState extends State<DashboardCurrencyPicker> {
                 items: list.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value),
+                    child: SizedBox(
+                      width: 70,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(value),
+                          Icon(
+                            Icons.arrow_downward,
+                            size: 18,
+                            color: MySavingColors.defaultBlueButton,
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 }).toList(),
               ))

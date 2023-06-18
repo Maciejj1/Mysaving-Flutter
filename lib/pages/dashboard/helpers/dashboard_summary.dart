@@ -54,26 +54,31 @@ class DashboardSummaryPage extends StatelessWidget {
                     height: 170,
                     width: 180,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/dashboard/left.png"),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                         color: MySavingColors.defaultBlueButton),
                     child: Column(children: [
                       Expanded(
                           child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 10, right: 10),
+                                child: Text(
                                   'Twoje oszczednosci',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 13),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Gap(30),
+                          Gap(35),
                           Text(
                             '${dashboardSummary.saving} PLN',
                             style: TextStyle(
@@ -82,10 +87,10 @@ class DashboardSummaryPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(right: 10, top: 10),
                             child: SizedBox(
                               width: 200,
-                              height: 49,
+                              height: 70,
                               child: DashboardCurrencyPicker(),
                             ),
                           )
@@ -98,6 +103,11 @@ class DashboardSummaryPage extends StatelessWidget {
                     height: 170,
                     width: 180,
                     decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage("assets/images/dashboard/right.png"),
+                          fit: BoxFit.cover,
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
@@ -106,7 +116,7 @@ class DashboardSummaryPage extends StatelessWidget {
                             offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(20),
                         color: Colors.white),
                     child: Column(children: [
                       Expanded(
