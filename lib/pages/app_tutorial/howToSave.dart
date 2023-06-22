@@ -90,14 +90,7 @@ class _howToSaveState extends State<howToSave> {
             width: 350,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const mainPage(),
-                //   ),
-                // );
-              },
+              onPressed: () {},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

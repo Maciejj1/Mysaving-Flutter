@@ -48,14 +48,7 @@ class _howToAddState extends State<howToAdd> {
             width: 350,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const mainPage(),
-                //   ),
-                // );
-              },
+              onPressed: () {},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

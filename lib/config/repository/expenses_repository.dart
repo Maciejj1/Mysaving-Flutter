@@ -18,6 +18,7 @@ class ExpensesRepository extends IExpensesRepository {
         return {
           'name': expense.name,
           'cost': expense.cost,
+          'time': expense.expensesTime
         };
       }).toList();
 
@@ -49,7 +50,6 @@ class ExpensesRepository extends IExpensesRepository {
 
   @override
   Future<List<Category>> getCategory() {
-    // TODO: implement getCategory
     throw UnimplementedError();
   }
 

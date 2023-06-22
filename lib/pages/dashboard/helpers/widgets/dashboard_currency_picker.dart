@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 class DashboardCurrencyPicker extends StatefulWidget {
@@ -25,10 +23,8 @@ class _DashboardCurrencyPickerState extends State<DashboardCurrencyPicker> {
               width: 72,
               height: 35,
               decoration: BoxDecoration(
-                color: Colors.white, //background color of dropdown button
-
-                borderRadius: BorderRadius.circular(
-                    12), //border raiuds of dropdown button
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
               ),
               child: DropdownButton<String>(
                 value: dropdownValue,
@@ -39,7 +35,6 @@ class _DashboardCurrencyPickerState extends State<DashboardCurrencyPicker> {
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
                 onChanged: (String? value) {
-                  // This is called when the user selects an item.
                   setState(() {
                     dropdownValue = value!;
                   });

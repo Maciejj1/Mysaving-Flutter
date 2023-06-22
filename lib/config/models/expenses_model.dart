@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Expenses {
   int? id;
   int? costs;
@@ -22,19 +24,22 @@ class Expenses {
 class Expense {
   String? name;
   int? cost;
+  Timestamp? expensesTime;
 
-  Expense({required this.name, required this.cost});
+  Expense({required this.name, required this.cost, required this.expensesTime});
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'cost': cost,
+      'time': expensesTime,
     };
   }
 
   Expense.fromJson(Map<String, dynamic> json) {
     name = json['name']?.toString() ?? "Nazwa";
     cost = json['cost'];
+    expensesTime = json['time'];
   }
 }
 

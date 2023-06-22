@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysavingapp/pages/profile/config/cubit/profile_cubit.dart';
 
 import '../../../common/utils/mysaving_images.dart';
 import '../../../config/repository/profile_repository.dart';
 
+// ignore: must_be_immutable
 class ProfileImage extends StatelessWidget {
   ProfileImage({super.key});
 
@@ -42,18 +41,6 @@ class ProfileImage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text(
-                  //   "Data urodzenia: ${profiles![0].dateOfBirth}",
-                  //   style: TextStyle(fontSize: 18),
-                  // ),
-                  // Text(
-                  //   "Email: ${profiles[0].email}",
-                  //   style: TextStyle(fontSize: 18),
-                  // ),
-                  // Text(
-                  //   "Hasło: ${profiles[0].password}",
-                  //   style: TextStyle(fontSize: 18),
-                  // ),
                   profiles![0].pictureImage.isEmpty
                       ? Container(
                           width: 150,

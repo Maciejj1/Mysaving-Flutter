@@ -13,10 +13,8 @@ class AppleRepository {
         AppleIDAuthorizationScopes.email,
         AppleIDAuthorizationScopes.fullName,
       ],
-      // Scopes and options...
     );
 
-    // Handle the credential...
     print(credential);
 
     // Firebase sign-in with credential
@@ -28,9 +26,6 @@ class AppleRepository {
     try {
       // Sign in with Firebase
       await _firebaseAuth.signInWithCredential(firebaseCredential);
-
-      // Redirect to dashboard (replace with your own code)
-      // Navigator.pushNamed(context, '/dashboard');
     } catch (e) {
       // Handle sign-in error
       print("Sign-in with Apple error: $e");

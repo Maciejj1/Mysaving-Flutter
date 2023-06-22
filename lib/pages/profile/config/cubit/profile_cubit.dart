@@ -1,15 +1,9 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mysavingapp/config/repository/interfaces/IProfileRepository.dart';
 import 'package:mysavingapp/config/repository/profile_repository.dart';
 
 import '../../../../config/models/profile_model.dart';
-import '../../../../config/singleton/user_manager.dart';
 
 part 'profile_state.dart';
 

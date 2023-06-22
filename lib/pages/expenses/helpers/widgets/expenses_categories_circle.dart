@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class ExpensesCategoriesCircle extends StatelessWidget {
   const ExpensesCategoriesCircle(
@@ -39,13 +37,6 @@ class ExpensesCategoriesCircle extends StatelessWidget {
             alignment: Alignment.center,
             child: Column(
               children: [
-                // Text(
-                //   '',
-                //   style: TextStyle(
-                //     color: Colors.green,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
                 Text(
                   circlePercentage,
                   style: TextStyle(

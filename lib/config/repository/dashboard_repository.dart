@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:mysavingapp/config/repository/interfaces/IDashboardRepository.dart';
 import 'package:intl/intl.dart';
 import '../models/dashboard_model.dart';
@@ -25,25 +24,6 @@ class DashboardRepository extends IDashboardRepository {
         };
       }).toList();
 
-      List<Map<String, dynamic>> dashboardLastExpenses =
-          dashboard.dashboardLastExpenses!.map((lastExpenses) {
-        return {
-          'categories': lastExpenses.categories.map((category) {
-            return {
-              'id': category.id,
-              'name': category.name,
-              'url': category.url,
-              'expenses': category.expenses!.map((expense) {
-                return {
-                  'name': expense.name,
-                  'cost': expense.cost,
-                };
-              }).toList(),
-              'costs': category.costs,
-            };
-          }).toList(),
-        };
-      }).toList();
       List<Map<String, dynamic>> dashboardAnalitycs =
           dashboard.dashboardAnalytics!.map((analitycs) {
         return {
@@ -53,7 +33,7 @@ class DashboardRepository extends IDashboardRepository {
               'saldo': anali.saldo,
               'expenses': anali.expenses,
               'saving': anali.saving,
-              'date': anali.weekdayName,
+              'date': anali.date.toString(),
             };
           }).toList(),
         };
@@ -62,12 +42,11 @@ class DashboardRepository extends IDashboardRepository {
       return {
         'id': dashboard.id,
         'dashboardSummary': dashboardSummary,
-        'dashboardLastExpenses': dashboardLastExpenses,
         'dashboardAnalitycs': dashboardAnalitycs,
       };
     }).toList();
 
-    // Tworzymy nowy dokument w kolekcji "expenses" z UID użytkownika jako ID dokumentu
+    // Tworzymy nowy dokument w kolekcji "dashboard" z UID użytkownika jako ID dokumentu
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
     CollectionReference userDashboardCol =
         userExpenseDoc.collection('dashboard');
@@ -137,7 +116,7 @@ class DashboardRepository extends IDashboardRepository {
             saldo: dayData['saldo'],
             saving: dayData['saving'],
             expenses: dayData['expenses'],
-            date: date,
+            date: date.toString(),
           );
           summaryList.add(day);
         }
@@ -151,10 +130,5 @@ class DashboardRepository extends IDashboardRepository {
     }
 
     return dashboardList;
-  }
-
-  @override
-  Future<List<DashboardLastExpenses>> getDashboardExpenses() {
-    throw UnimplementedError();
   }
 }

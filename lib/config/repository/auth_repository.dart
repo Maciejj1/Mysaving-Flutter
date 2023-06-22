@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mysavingapp/config/models/dashboard_model.dart';
@@ -44,117 +45,93 @@ class AuthRepository {
           name: 'Home',
           url: 'assets/images/categories/home.png',
           expenses: [
-            Expense(name: 'Rent', cost: 1000),
-            Expense(name: 'Utilities', cost: 200),
+            Expense(
+                name: 'Rent',
+                cost: 1000,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 1))),
+            Expense(
+                name: 'Utilities',
+                cost: 200,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 15))),
           ],
-          costs: 0, // Call the method to calculate costs
+          costs: 0,
         ),
         Category(
           id: 2,
           name: 'Food',
           url: 'assets/images/categories/coffe.png',
           expenses: [
-            Expense(name: 'Rent', cost: 100),
-            Expense(name: 'Utilities', cost: 200),
+            Expense(
+                name: 'Rent',
+                cost: 100,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 21))),
+            Expense(
+                name: 'Utilities',
+                cost: 200,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 20))),
           ],
-          costs: 0, // Call the method to calculate costs
+          costs: 0,
         ),
         Category(
           id: 3,
           name: 'Addictions',
           url: 'assets/images/categories/smoke.png',
           expenses: [
-            Expense(name: 'Rent', cost: 300),
-            Expense(name: 'Utilities', cost: 100),
+            Expense(
+                name: 'Rent',
+                cost: 300,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 10))),
+            Expense(
+                name: 'Utilities',
+                cost: 100,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 25))),
           ],
-          costs: 0, // Call the method to calculate costs
+          costs: 0,
         ),
         Category(
           id: 4,
           name: 'Events',
           url: 'assets/images/categories/headphones.png',
           expenses: [
-            Expense(name: 'Rent', cost: 10),
-            Expense(name: 'Utilities', cost: 680),
+            Expense(
+                name: 'Rent',
+                cost: 10,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 3))),
+            Expense(
+                name: 'Utilities',
+                cost: 680,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 22))),
           ],
-          costs: 0, // Call the method to calculate costs
+          costs: 0,
         ),
         Category(
           id: 5,
           name: 'Charges',
           url: 'assets/images/categories/device.png',
           expenses: [
-            Expense(name: 'Rent', cost: 311),
-            Expense(name: 'Utilities', cost: 420),
+            Expense(
+                name: 'Rent',
+                cost: 311,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 19))),
+            Expense(
+                name: 'Utilities',
+                cost: 420,
+                expensesTime: Timestamp.fromDate(DateTime(2023, 6, 23))),
           ],
-          costs: 0, // Call the method to calculate costs
+          costs: 0,
         ),
-
-        // Add the remaining categories and expenses here
       ];
-
       List<DashboardModel> dashboard = [
         DashboardModel(
-            dashboardLastExpenses: [
-              DashboardLastExpenses(categories: categories)
-            ],
             dashboardSummary: [
               DashboardSummary(
                   id: 1, saldo: 1000, saving: 1000, expenses: 1000),
             ],
             id: "1",
             dashboardAnalytics: [
-              DashboardAnalytics(summary: [
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 200,
-                  id: 1,
-                  saldo: 1500,
-                  saving: 1300,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 200,
-                  id: 2,
-                  saldo: 1300,
-                  saving: 1100,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 0,
-                  id: 3,
-                  saldo: 3000,
-                  saving: 2900,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 500,
-                  id: 4,
-                  saldo: 3500,
-                  saving: 2400,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 300,
-                  id: 5,
-                  saldo: 3200,
-                  saving: 2100,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 1000,
-                  id: 6,
-                  saldo: 2200,
-                  saving: 1100,
-                ),
-                DashboardAnalitycsDay(
-                  date: DateTime.now(),
-                  expenses: 100,
-                  id: 7,
-                  saldo: 2100,
-                  saving: 1000,
-                )
-              ])
+              DashboardAnalytics(
+                summary: calculateAnalyticsForWeek(categories),
+              ),
             ])
       ];
       List<UserProfile> profile = [
@@ -199,6 +176,47 @@ class AuthRepository {
       await SettingsRepository(uid: uid).updateUserData(settings);
       print('Expenses data has been updated for the user with UID: $uid');
     } catch (_) {}
+  }
+
+  List<DashboardAnalitycsDay> calculateAnalyticsForWeek(
+      List<Category> categories) {
+    List<DashboardAnalitycsDay> weekAnalytics = [];
+
+    DateTime now = DateTime.now();
+    DateTime monday = now.subtract(Duration(days: now.weekday - 1));
+
+    List<String> weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    for (int i = 0; i < 7; i++) {
+      DateTime day = monday.add(Duration(days: i));
+
+      int expenses = 0;
+      int saldo = 0;
+      int saving = 0;
+
+      for (Category category in categories) {
+        for (Expense expense in category.expenses!) {
+          DateTime expenseDate = expense.expensesTime!.toDate();
+          if (expenseDate.year == day.year &&
+              expenseDate.month == day.month &&
+              expenseDate.day == day.day) {
+            expenses += expense.cost!;
+          }
+        }
+      }
+
+      weekAnalytics.add(
+        DashboardAnalitycsDay(
+          date: weekDays[i],
+          expenses: expenses,
+          id: i + 1,
+          saldo: saldo,
+          saving: saving,
+        ),
+      );
+    }
+
+    return weekAnalytics;
   }
 
   Future<void> singIn({required String email, required String password}) async {

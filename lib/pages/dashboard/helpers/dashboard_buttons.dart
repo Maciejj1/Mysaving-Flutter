@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:gap/gap.dart';
 
 class DashboardButtons extends StatelessWidget {
@@ -19,11 +17,8 @@ class DashboardButtons extends StatelessWidget {
           child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                          width: 3, // thickness
-                          color: Color(0xFF444FFF) // color
-                          ),
-                      // border radius
+                      side:
+                          const BorderSide(width: 3, color: Color(0xFF444FFF)),
                       borderRadius: BorderRadius.circular(25)),
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent),
@@ -48,11 +43,8 @@ class DashboardButtons extends StatelessWidget {
           child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                          width: 3, // thickness
-                          color: Color(0xFF444FFF) // color
-                          ),
-                      // border radius
+                      side:
+                          const BorderSide(width: 3, color: Color(0xFF444FFF)),
                       borderRadius: BorderRadius.circular(25)),
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent),

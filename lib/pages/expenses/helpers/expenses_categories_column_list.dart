@@ -36,12 +36,6 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
         if (state is ExpenseSuccess) {
           List<Expenses> expensesList = state.expenses;
           if (expensesList.isNotEmpty) {
-            int index = 0;
-            Expenses expenses = expensesList[index];
-            double calculatePercentage(double costs, int totalCosts) {
-              return (costs / totalCosts) * 100.0;
-            }
-
             List<Category> categories = expensesList
                 .expand((element) => element.categories)
                 .take(5)
@@ -56,8 +50,6 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                     'Kategorie wydatków',
                     style: TextStyle(color: MySavingColors.defaultGreyText),
                   ),
-                  // Text('Expenses ID: ${expensesList[index].id ?? ''}'),
-                  // Text('Total Costs: ${expensesList[index].costs ?? ''}'),
                   Gap(10),
                   SizedBox(
                     width: 370,

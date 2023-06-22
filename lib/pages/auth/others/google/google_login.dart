@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mysavingapp/config/repository/auth_repository.dart';
 import 'package:mysavingapp/config/repository/google_repository.dart';
 import 'package:mysavingapp/pages/auth/others/google/cubit/google_cubit.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -33,7 +30,7 @@ class GoogleLoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(
-              message: "Pomyślnie zalogowano. Witaj :D", //brak
+              message: "Pomyślnie zalogowano. Witaj :D",
             ),
           );
         }
@@ -45,6 +42,7 @@ class GoogleLoginForm extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class GoogleLogin extends StatelessWidget {
   GoogleLogin({super.key});
   MySavingImages images = MySavingImages();

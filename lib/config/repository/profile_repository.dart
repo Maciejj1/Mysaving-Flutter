@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mysavingapp/config/models/profile_model.dart';
 import 'package:mysavingapp/config/repository/interfaces/IProfileRepository.dart';
-
-import '../models/dashboard_model.dart';
 import '../singleton/user_manager.dart';
 
 class ProfileRepository extends IProfileRepository {
@@ -126,20 +121,8 @@ class ProfileRepository extends IProfileRepository {
 
   @override
   Future<void> updateProfilePicture(String imagePath) async {
-    UserManager userManager = UserManager();
-    String? userID = await userManager.getUID();
-
     List<UserProfile> profiles = await getProfile();
 
-    if (profiles.isNotEmpty) {
-      Reference storageRef = FirebaseStorage.instance.ref().child(userID!);
-      UploadTask uploadTask = storageRef.putFile(File(imagePath));
-      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-      int profileId = profiles[0].id;
-
-      final result = await profileCollection.doc(userID).collection('profile');
-    }
+    if (profiles.isNotEmpty) {}
   }
 }

@@ -5,6 +5,7 @@ import 'package:mysavingapp/pages/app_tutorial/mysaving_tutorial.dart';
 
 import '../../common/utils/mysaving_images.dart';
 
+// ignore: must_be_immutable
 class WelcomeTutorialScreen extends StatelessWidget {
   WelcomeTutorialScreen({super.key});
   static Route route() {

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:mysavingapp/config/models/dashboard_model.dart';
 
 import '../../../../config/repository/interfaces/IDashboardRepository.dart';
-import '../../../../config/repository/dashboard_repository.dart';
 
 part 'dashboard_summary_state.dart';
 

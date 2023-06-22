@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mysavingapp/config/models/premium_user_model.dart';
-import 'package:mysavingapp/config/models/profile_model.dart';
-
-import '../models/dashboard_model.dart';
 
 class PremiumUserRepository {
   final String? uid;

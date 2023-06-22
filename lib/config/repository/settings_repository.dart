@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mysavingapp/config/models/settings_model.dart';
 
-import '../models/dashboard_model.dart';
-
 class SettingsRepository {
   final String? uid;
 

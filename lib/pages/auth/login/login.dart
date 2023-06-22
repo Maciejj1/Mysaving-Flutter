@@ -1,6 +1,3 @@
-import 'dart:io';
-// Needed because we can't import `dart:html` into a mobile app,
-// while on the flip-side access to `dart:io` throws at runtime (hence the `kIsWeb` check below)
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
@@ -8,20 +5,10 @@ import 'package:mysavingapp/config/repository/apple_repository.dart';
 import 'package:mysavingapp/config/repository/google_repository.dart';
 import 'package:mysavingapp/pages/auth/others/apple/apple_login.dart';
 import 'package:mysavingapp/pages/auth/others/google/google_login.dart';
-
-import './helpers/html_shim.dart' if (dart.library.html) 'dart:html'
-    show window;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
 import '../../../common/helpers/mysaving_snackbar.dart';
 import '../../../config/repository/auth_repository.dart';
 import '../others/apple/cubit/apple_cubit.dart';
@@ -62,6 +49,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LoginForm extends StatelessWidget {
   LoginForm({super.key});
   MySavingImages images = MySavingImages();
@@ -85,7 +73,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(
-              message: "Pomyślnie zalogowano. Witaj ${state.email}", //brak
+              message: "Pomyślnie zalogowano. Witaj ${state.email}",
             ),
           );
         }
@@ -93,7 +81,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Oops... Something went wrong", //brak
+              message: "Oops... Something went wrong",
             ),
           );
         }
@@ -103,7 +91,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wpisałeś za krótkie hasło", //brak
+              message: "Wpisałeś za krótkie hasło",
             ),
           );
         }
@@ -113,7 +101,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wpisałeś zły email", //brak
+              message: "Wpisałeś zły email",
             ),
           );
         }
@@ -123,7 +111,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Nie wpisałeś email", //brak
+              message: "Nie wpisałeś email",
             ),
           );
         }
@@ -133,7 +121,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Nie wpisałeś password", //brak
+              message: "Nie wpisałeś password",
             ),
           );
         }
@@ -143,7 +131,7 @@ class LoginForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wypełnij formularz", //brak
+              message: "Wypełnij formularz",
             ),
           );
         }

@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mysavingapp/config/repository/google_repository.dart';
 
-import '../../../../../config/repository/auth_repository.dart';
-
 part 'google_state.dart';
 
 class GoogleCubit extends Cubit<GoogleState> {

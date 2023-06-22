@@ -49,7 +49,6 @@ class _MysavingSnackBarState extends State<MysavingSnackBar> {
         horizontal: 24,
         vertical: 12,
       ),
-      // height: 80,
       decoration: BoxDecoration(
         color: widget.backgroundColor,
         borderRadius: widget.borderRadius,

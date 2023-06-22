@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:mysavingapp/pages/dashboard/dashboard.dart';
 import 'package:mysavingapp/pages/main_page/main_page.dart';
 
 class MySavingTutorial extends StatefulWidget {
@@ -98,7 +97,6 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
         showBackButton: false,
         showDoneButton: false,
         showBottomPart: true,
-        //rtl: true, // Display as right-to-left
         back: const Icon(
           Icons.arrow_back,
           color: Color(0xff806FF1),

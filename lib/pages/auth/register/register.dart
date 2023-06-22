@@ -33,6 +33,7 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class RegisterForm extends StatelessWidget {
   RegisterForm({super.key});
   MySavingImages images = MySavingImages();
@@ -57,7 +58,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             MysavingSnackBar.success(
-              message: "Pomyślnie zarejestrowano. Witaj ${state.email}", //brak
+              message: "Pomyślnie zarejestrowano. Witaj ${state.email}",
             ),
           );
         }
@@ -65,7 +66,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Oops... Something went wrong", //brak
+              message: "Oops... Something went wrong",
             ),
           );
         }
@@ -75,7 +76,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wpisałeś za krótkie hasło", //brak
+              message: "Wpisałeś za krótkie hasło",
             ),
           );
         }
@@ -85,7 +86,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wpisałeś zły email", //brak
+              message: "Wpisałeś zły email",
             ),
           );
         }
@@ -95,7 +96,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Nie wpisałeś email", //brak
+              message: "Nie wpisałeś email",
             ),
           );
         }
@@ -105,7 +106,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Nie wpisałeś password", //brak
+              message: "Nie wpisałeś password",
             ),
           );
         }
@@ -115,7 +116,7 @@ class RegisterForm extends StatelessWidget {
           showTopSnackBar(
             Overlay.of(context),
             const MysavingSnackBar.error(
-              message: "Wypełnij formularz", //brak
+              message: "Wypełnij formularz",
             ),
           );
         }
