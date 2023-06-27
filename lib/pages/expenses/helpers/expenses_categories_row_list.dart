@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
-import '../../../config/models/expenses_model.dart';
-import '../../../config/repository/expenses_repository.dart';
+import '../../../data/models/expenses_model.dart';
+import '../../../data/repositories/expenses_repository.dart';
 import '../config/cubit/expense_cubit.dart';
 
 class ExpensesCategoriesRowList extends StatelessWidget {
@@ -72,7 +72,7 @@ class ExpensesCategoriesRowList extends StatelessWidget {
                                   height: 65,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.white,
+                                    color: MySavingColors.defaultCategories,
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.grey.withOpacity(0.5),
@@ -101,7 +101,7 @@ class ExpensesCategoriesRowList extends StatelessWidget {
                                   child: Column(
                                     children: [
                                       Text(
-                                        '${calculatePercentage(totalCategoryCosts, expenses.costs ?? 0).toStringAsFixed(1)}%',
+                                        '${calculatePercentage(totalCategoryCosts, expenses.costs ?? 0).toStringAsFixed(0)}%',
                                         style: TextStyle(
                                           color: MySavingColors.defaultGreyText,
                                         ),

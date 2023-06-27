@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/helpers/mysaving_snackbar.dart';
-import 'package:mysavingapp/config/repository/auth_repository.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
+import 'package:mysavingapp/data/repositories/auth_repository.dart';
 import 'package:mysavingapp/pages/app_tutorial/welcome_tutorial.dart';
 import 'package:mysavingapp/pages/auth/login/login.dart';
 import 'package:mysavingapp/pages/auth/register/cubit/register_cubit.dart';
@@ -131,7 +132,7 @@ class RegisterForm extends StatelessWidget {
           Text(
             'Zarejestruj się',
             style: TextStyle(
-                color: Color(0xFF202020),
+                color: MySavingColors.defaultDarkText,
                 fontFamily: 'Inter',
                 fontSize: 22,
                 fontWeight: FontWeight.w800),
@@ -183,18 +184,19 @@ class RegisterEmailTextField extends StatelessWidget {
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.mail),
                   hintText: "Email",
-                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  hintStyle: TextStyle(
+                      color: MySavingColors.defaultGreyText, fontSize: 15),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       )),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       ))),
             ),
           )
@@ -223,18 +225,19 @@ class RegisterPasswordTextField extends StatelessWidget {
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.lock),
                   hintText: "Hasło",
-                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  hintStyle: TextStyle(
+                      color: MySavingColors.defaultGreyText, fontSize: 15),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       )),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       ))),
             ),
           )
@@ -259,7 +262,7 @@ class RegisterButton extends StatelessWidget {
                   width: 250,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF444FFF)),
+                      color: MySavingColors.defaultBlueButton),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,

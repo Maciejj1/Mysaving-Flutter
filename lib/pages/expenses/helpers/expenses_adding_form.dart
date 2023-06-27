@@ -25,29 +25,32 @@ class _ExpensesAddingFormState extends State<ExpensesAddingForm> {
     return Center(
       child: Column(
         children: [
-          Text('Dodaj Wydatek'),
+          Text(
+            'Dodaj Wydatek',
+            style: TextStyle(color: MySavingColors.defaultGreyText),
+          ),
           Gap(15),
           SizedBox(
             width: 250,
             child: Material(
               borderRadius: BorderRadius.circular(15),
               elevation: 5.0,
-              shadowColor: Colors.blue,
+              shadowColor: MySavingColors.defaultBlueButton,
               child: DropdownButtonFormField<String>(
                 value: dropdownValue,
                 elevation: 6,
                 icon: Icon(Icons.arrow_downward),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MySavingColors.defaultCategories,
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 style: TextStyle(
-                  color: MySavingColors.defaultBlueButton,
+                  color: MySavingColors.defaultExpensesText,
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
@@ -81,16 +84,16 @@ class _ExpensesAddingFormState extends State<ExpensesAddingForm> {
             child: Material(
               borderRadius: BorderRadius.circular(15),
               elevation: 5.0,
-              shadowColor: Colors.blue,
+              shadowColor: MySavingColors.defaultBlueButton,
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Nazwa',
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MySavingColors.defaultCategories,
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
               ),
@@ -102,22 +105,21 @@ class _ExpensesAddingFormState extends State<ExpensesAddingForm> {
             child: Material(
               borderRadius: BorderRadius.circular(15),
               elevation: 5.0,
-              shadowColor: Colors.blue,
+              shadowColor: MySavingColors.defaultBlueButton,
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Koszt',
                   suffix: Text('.PLN'),
                   suffixStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: MySavingColors.defaultGreyText),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: MySavingColors.defaultCategories,
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
               ),
@@ -131,7 +133,7 @@ class _ExpensesAddingFormState extends State<ExpensesAddingForm> {
             width: 250,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color(0xFF444FFF)),
+                color: MySavingColors.defaultBlueButton),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mysavingapp/config/repository/apple_repository.dart';
+import 'package:mysavingapp/data/repositories/apple_repository.dart';
 
 part 'apple_state.dart';
 

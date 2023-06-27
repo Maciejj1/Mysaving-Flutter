@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
-import 'package:mysavingapp/config/models/dashboard_model.dart';
+import 'package:mysavingapp/config/services/theme_constants.dart';
+import 'package:mysavingapp/data/models/dashboard_model.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_currency_picker.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_summary_row.dart';
 
-import '../../../config/repository/dashboard_repository.dart';
+import '../../../data/repositories/dashboard_repository.dart';
 import '../conf/cubit/dashboard_summary_cubit.dart';
 
 class DashboardSummaryPage extends StatelessWidget {
@@ -109,15 +110,17 @@ class DashboardSummaryPage extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                         boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
+                          DarkModeSwitch.isDarkMode
+                              ? BoxShadow()
+                              : BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
                         ],
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
+                        color: MySavingColors.defaultCategories),
                     child: Column(children: [
                       Expanded(
                           child: Column(
@@ -143,8 +146,10 @@ class DashboardSummaryPage extends StatelessWidget {
                                     titleText: 'Saldo',
                                     costs: '${dashboardSummary.saldo}',
                                     icon: Icons.abc,
-                                    iconColor: MySavingColors.defaultBlueButton,
-                                    textcolor: MySavingColors.defaultBlueButton,
+                                    iconColor:
+                                        MySavingColors.defaultExpensesText,
+                                    textcolor:
+                                        MySavingColors.defaultExpensesText,
                                   ),
                                   DashboardSummaryRow(
                                     titleText: 'Oszczędności',

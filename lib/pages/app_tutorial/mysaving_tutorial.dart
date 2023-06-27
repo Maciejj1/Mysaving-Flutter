@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/pages/main_page/main_page.dart';
 
 class MySavingTutorial extends StatefulWidget {
@@ -26,14 +27,16 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
   }
 
   static const bodyStyle = TextStyle(fontSize: 17.0, color: Color(0xff4D5284));
-  static const pageDecoration = PageDecoration(
+  static var pageDecoration = PageDecoration(
     bodyFlex: 4,
     imageFlex: 6,
 
     titlePadding: EdgeInsets.fromLTRB(
         16.0, 30, 16.0, 20), // Zmniejszono górną i dolną wartość
     titleTextStyle: TextStyle(
-        fontSize: 28.0, fontWeight: FontWeight.w700, color: Color(0xFF202020)),
+        fontSize: 28.0,
+        fontWeight: FontWeight.w700,
+        color: MySavingColors.defaultDarkText),
     bodyTextStyle: bodyStyle,
     bodyPadding: EdgeInsets.fromLTRB(
         16.0, 0, 16.0, 0), // Zmniejszono górną i dolną wartość
@@ -51,7 +54,7 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
             height: 50,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: Color(0xFF444FFF)),
+                color: MySavingColors.defaultBlueButton),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -108,16 +111,16 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
           Icons.arrow_forward,
           color: Color(0xff806FF1),
         ),
-        done: const Text('Go Earn',
+        done: Text('Go Earn',
             style: TextStyle(
                 fontWeight: FontWeight.w600, color: Color(0xFF444FFF))),
         curve: Curves.fastLinearToSlowEaseIn,
         controlsMargin: const EdgeInsets.only(bottom: 56),
-        dotsDecorator: const DotsDecorator(
+        dotsDecorator: DotsDecorator(
           size: Size(20.0, 10.0),
           color: Color(0xFFBDBDBD),
           activeSize: Size(22.0, 10.0),
-          activeColor: Color(0xFF444FFF),
+          activeColor: MySavingColors.defaultBlueButton,
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25.0)),
           ),

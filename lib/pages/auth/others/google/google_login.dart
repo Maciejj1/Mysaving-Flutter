@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/google_repository.dart';
+import 'package:mysavingapp/data/repositories/google_repository.dart';
 import 'package:mysavingapp/pages/auth/others/google/cubit/google_cubit.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 

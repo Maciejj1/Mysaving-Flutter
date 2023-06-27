@@ -2,11 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/common/routes/mysaving_routes.dart';
-import 'package:mysavingapp/config/repository/auth_repository.dart';
-import 'package:mysavingapp/firebase_options.dart';
+import 'package:mysavingapp/config/routes/mysaving_routes.dart';
+import 'package:mysavingapp/config/services/theme_constants.dart';
+import 'package:mysavingapp/data/repositories/auth_repository.dart';
+import 'package:mysavingapp/data/firebase/firebase_options.dart';
+import 'package:provider/provider.dart';
 
-import 'config/bloc/app_bloc.dart';
+import 'bloc/app_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,16 +16,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final authRepository = AuthRepository();
-  runApp(MyApp(
-    authRepository: authRepository,
-  ));
+  runApp(
+    MyApp(
+      authRepository: authRepository,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   final AuthRepository _authRepository;
+
   const MyApp({Key? key, required AuthRepository authRepository})
       : _authRepository = authRepository,
         super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -34,26 +40,24 @@ class MyApp extends StatelessWidget {
             create: (_) => AppBloc(authRepository: _authRepository),
           ),
         ],
-        child: const AppView(),
+        child: AppView(),
       ),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  const AppView({super.key});
+  const AppView({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // theme: themeNotifier.getTheme(),
       debugShowCheckedModeBanner: false,
       title: 'Go router',
       home: FlowBuilder(
         onGeneratePages: onGeneratedMysavingViewPages,
         state: context.select((AppBloc bloc) => bloc.state.status),
-      ),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
       ),
     );
   }

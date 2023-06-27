@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/pages/auth/login/login.dart';
 
@@ -24,7 +25,7 @@ class SplashScreen extends StatelessWidget {
             Text(
               'Zacznijmy',
               style: TextStyle(
-                  color: Color(0xFF202020),
+                  color: MySavingColors.defaultDarkText,
                   fontFamily: 'Inter',
                   fontSize: 22,
                   fontWeight: FontWeight.w800),
@@ -36,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                 'Zaloguj się lub zarejstruj i zacznij oszczędzać na swoje marzenia',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Color(0xFF202020),
+                    color: MySavingColors.defaultDarkText,
                     fontFamily: 'Inter',
                     fontSize: 16,
                     fontWeight: FontWeight.w300),
@@ -50,7 +51,7 @@ class SplashScreen extends StatelessWidget {
               width: 250,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFF444FFF)),
+                  color: MySavingColors.defaultBlueButton),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/apple_repository.dart';
+import 'package:mysavingapp/data/repositories/apple_repository.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../../common/helpers/mysaving_snackbar.dart';
 import '../../../../common/utils/mysaving_images.dart';

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/dashboard_repository.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
+import 'package:mysavingapp/data/repositories/dashboard_repository.dart';
 import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_analitycs_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_analitycs_chart.dart';
 
-import '../../../config/models/dashboard_model.dart';
+import '../../../data/models/dashboard_model.dart';
 
 class DashboardAnalitycsPage extends StatelessWidget {
   const DashboardAnalitycsPage({Key? key});
@@ -52,7 +53,9 @@ class DashboardAnalitycsPage extends StatelessWidget {
                         child: Text(
                           'Moja analiza',
                           style: TextStyle(
-                              fontSize: 19, fontWeight: FontWeight.bold),
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: MySavingColors.defaultDarkText),
                         ),
                       ),
                       Container(
@@ -60,12 +63,13 @@ class DashboardAnalitycsPage extends StatelessWidget {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: Color(0xFF444FFF),
+                          color: MySavingColors.defaultLightBlueBackground,
                         ),
                         child: Center(
                           child: Text(
                             'Ten tydzień',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                color: MySavingColors.defaultExpensesText),
                           ),
                         ),
                       ),

@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mysavingapp/config/repository/auth_repository.dart';
+import 'package:mysavingapp/data/repositories/auth_repository.dart';
 
 import 'package:mysavingapp/main.dart';
 

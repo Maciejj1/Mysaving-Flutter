@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../common/utils/mysaving_colors.dart';
-import '../../../../config/models/dashboard_model.dart';
+import '../../../../data/models/dashboard_model.dart';
 
 class VerticalBarChartPainter extends CustomPainter {
   final List<DashboardAnalitycsDay> data;
@@ -60,7 +60,7 @@ class VerticalBarChartPainter extends CustomPainter {
 
       // Rysowanie linii granic wydatków
       paint.color =
-          MySavingColors.defaultBlueButton; // Kolor linii granic wydatków
+          MySavingColors.defaultExpensesText; // Kolor linii granic wydatków
       paint.strokeWidth = 1.0;
       canvas.drawLine(
         Offset(x, chartHeight / 2.9),
@@ -98,7 +98,7 @@ class VerticalBarChartPainter extends CustomPainter {
       final textStyle = TextStyle(
         color: data[i].expenses > 600
             ? MySavingColors.defaultRed
-            : MySavingColors.defaultBlueButton,
+            : MySavingColors.defaultExpensesText,
         fontSize: 10,
         fontWeight: FontWeight.bold,
       );

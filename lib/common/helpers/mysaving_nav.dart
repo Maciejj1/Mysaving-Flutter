@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/profile_repository.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
+import 'package:mysavingapp/data/repositories/profile_repository.dart';
 import 'package:mysavingapp/pages/profile/config/cubit/profile_cubit.dart';
 
 import '../utils/mysaving_images.dart';
@@ -51,12 +52,16 @@ class MySavingUpNav extends StatelessWidget {
                           children: [
                             Text(
                               'Dzień dobry 🔆',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: MySavingColors.defaultDarkText),
                             ),
                             Text(
                               profiles![0].name,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: MySavingColors.defaultDarkText),
                             ),
                           ],
                         ),
@@ -64,7 +69,10 @@ class MySavingUpNav extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.notifications,
+                        color: MySavingColors.defaultDarkText))
               ],
             ),
           );

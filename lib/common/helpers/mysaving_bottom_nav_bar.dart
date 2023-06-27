@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
+import 'package:mysavingapp/config/services/theme_constants.dart';
 
 class MySavingBottomNav extends StatefulWidget {
   const MySavingBottomNav(
@@ -18,11 +20,13 @@ class _MySavingBottomNavState extends State<MySavingBottomNav> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: MySavingColors.defaultCategories,
         boxShadow: [
           BoxShadow(
             blurRadius: 20,
-            color: Colors.black.withOpacity(.1),
+            color: DarkModeSwitch.isDarkMode
+                ? Colors.white.withOpacity(.1)
+                : Colors.black.withOpacity(.1),
           )
         ],
       ),
@@ -30,15 +34,18 @@ class _MySavingBottomNavState extends State<MySavingBottomNav> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
           child: GNav(
-            rippleColor: Colors.grey[300]!,
-            hoverColor: Colors.grey[100]!,
+            rippleColor:
+                DarkModeSwitch.isDarkMode ? Colors.black12 : Colors.grey[300]!,
+            hoverColor:
+                DarkModeSwitch.isDarkMode ? Colors.black12 : Colors.grey[100]!,
             gap: 8,
-            activeColor: Colors.black,
+            activeColor: MySavingColors.defaultExpensesText,
             iconSize: 24,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             duration: Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.grey[100]!,
-            color: Colors.black,
+            tabBackgroundColor:
+                DarkModeSwitch.isDarkMode ? Colors.black12 : Colors.grey[100]!,
+            color: MySavingColors.defaultDarkText,
             tabs: [
               GButton(
                 icon: LineIcons.home,

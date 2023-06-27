@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../config/models/dashboard_model.dart';
-import '../../../../config/repository/interfaces/IDashboardRepository.dart';
+import '../../../../data/models/dashboard_model.dart';
+import '../../../../data/repositories/interfaces/IDashboardRepository.dart';
 
 part 'dashboard_analitycs_state.dart';
 

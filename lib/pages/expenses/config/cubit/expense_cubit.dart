@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mysavingapp/config/models/expenses_model.dart';
-import 'package:mysavingapp/config/repository/interfaces/IExpensesRepository.dart';
+import 'package:mysavingapp/data/models/expenses_model.dart';
+import 'package:mysavingapp/data/repositories/interfaces/IExpensesRepository.dart';
 
 part 'expense_state.dart';
 

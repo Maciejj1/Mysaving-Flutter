@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mysavingapp/config/repository/google_repository.dart';
+import 'package:mysavingapp/data/repositories/google_repository.dart';
 
 part 'google_state.dart';
 

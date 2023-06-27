@@ -1,8 +1,9 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
-import 'package:mysavingapp/config/repository/apple_repository.dart';
-import 'package:mysavingapp/config/repository/google_repository.dart';
+import 'package:mysavingapp/data/repositories/apple_repository.dart';
+import 'package:mysavingapp/data/repositories/google_repository.dart';
 import 'package:mysavingapp/pages/auth/others/apple/apple_login.dart';
 import 'package:mysavingapp/pages/auth/others/google/google_login.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../common/helpers/mysaving_snackbar.dart';
-import '../../../config/repository/auth_repository.dart';
+import '../../../data/repositories/auth_repository.dart';
 import '../others/apple/cubit/apple_cubit.dart';
 import '../others/google/cubit/google_cubit.dart';
 import '../register/register.dart';
@@ -146,7 +147,7 @@ class LoginForm extends StatelessWidget {
           Text(
             'Witaj z powrotem',
             style: TextStyle(
-                color: Color(0xFF202020),
+                color: MySavingColors.defaultDarkText,
                 fontFamily: 'Inter',
                 fontSize: 22,
                 fontWeight: FontWeight.w800),
@@ -176,7 +177,7 @@ class LoginForm extends StatelessWidget {
           Text(
             'LUB',
             style: TextStyle(
-                color: Color(0xFF202020),
+                color: MySavingColors.defaultDarkText,
                 fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w800),
@@ -218,18 +219,19 @@ class LoginEmailTextField extends StatelessWidget {
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.mail),
                   hintText: "Email",
-                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  hintStyle: TextStyle(
+                      color: MySavingColors.defaultGreyText, fontSize: 15),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       )),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       ))),
             ),
           )
@@ -258,18 +260,19 @@ class LoginPasswordTextField extends StatelessWidget {
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.lock),
                   hintText: "Hasło",
-                  hintStyle: TextStyle(color: Color(0xFF87898E), fontSize: 15),
+                  hintStyle: TextStyle(
+                      color: MySavingColors.defaultGreyText, fontSize: 15),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       )),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                         width: 0.5,
-                        color: Color(0xFFDADADA),
+                        color: MySavingColors.defaultInputStroke,
                       ))),
             ),
           )
@@ -294,7 +297,7 @@ class LoginButton extends StatelessWidget {
                   width: 250,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF444FFF)),
+                      color: MySavingColors.defaultBlueButton),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,

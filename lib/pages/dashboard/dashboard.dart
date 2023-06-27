@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/helpers/mysaving_nav.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/dashboard_analitycs.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/dashboard_buttons.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/dashboard_expenses.dart';
@@ -17,6 +18,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MySavingColors.defaultBackgroundPage,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

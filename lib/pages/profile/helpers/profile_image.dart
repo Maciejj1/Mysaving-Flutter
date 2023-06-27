@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/pages/profile/config/cubit/profile_cubit.dart';
 
 import '../../../common/utils/mysaving_images.dart';
-import '../../../config/repository/profile_repository.dart';
+import '../../../data/repositories/profile_repository.dart';
 
 // ignore: must_be_immutable
 class ProfileImage extends StatelessWidget {
@@ -48,18 +49,24 @@ class ProfileImage extends StatelessWidget {
                         )
                       : Text(
                           "Zdjęcie: ${profiles[0].pictureImage}",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
                         ),
                   Column(
                     children: [
                       Text(
                         "Dzień dobry,🔆",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: MySavingColors.defaultDarkText),
                       ),
                       Text(
                         "${profiles[0].name}",
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: MySavingColors.defaultDarkText),
                       ),
                     ],
                   ),

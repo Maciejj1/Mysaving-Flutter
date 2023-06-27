@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:mysavingapp/config/repository/interfaces/IProfileRepository.dart';
-import 'package:mysavingapp/config/repository/profile_repository.dart';
+import 'package:mysavingapp/data/repositories/interfaces/IProfileRepository.dart';
+import 'package:mysavingapp/data/repositories/profile_repository.dart';
 
-import '../../../../config/models/profile_model.dart';
+import '../../../../data/models/profile_model.dart';
 
 part 'profile_state.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysavingapp/common/helpers/mysaving_bottom_nav_bar.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/pages/expenses/expenses.dart';
 import 'package:mysavingapp/pages/profile/profile.dart';
 
@@ -28,6 +29,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MySavingColors.defaultBackgroundPage,
       body: SafeArea(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),

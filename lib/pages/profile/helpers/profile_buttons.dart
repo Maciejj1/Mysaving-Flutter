@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
-import '../../../config/bloc/app_bloc.dart';
+import '../../../bloc/app_bloc.dart';
 
 class ProfileButtons extends StatelessWidget {
   const ProfileButtons({super.key});
@@ -16,7 +17,7 @@ class ProfileButtons extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF444FFF)),
+              color: MySavingColors.defaultBlueButton),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -32,7 +33,7 @@ class ProfileButtons extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF444FFF)),
+              color: MySavingColors.defaultBlueButton),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -48,7 +49,7 @@ class ProfileButtons extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF444FFF)),
+              color: MySavingColors.defaultBlueButton),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -64,7 +65,7 @@ class ProfileButtons extends StatelessWidget {
           width: 300,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF444FFF)),
+              color: MySavingColors.defaultBlueButton),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
@@ -80,7 +81,7 @@ class ProfileButtons extends StatelessWidget {
           width: 250,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFF444FFF)),
+              color: MySavingColors.defaultBlueButton),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,

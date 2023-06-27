@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysavingapp/config/repository/expenses_repository.dart';
+import 'package:gap/gap.dart';
+import 'package:mysavingapp/data/repositories/expenses_repository.dart';
 import 'package:intl/intl.dart';
 
 import '../../../common/utils/mysaving_colors.dart';
-import '../../../config/models/expenses_model.dart';
+import '../../../data/models/expenses_model.dart';
 import '../../expenses/config/cubit/expense_cubit.dart';
 
 class DashboardExpenses extends StatelessWidget {
@@ -63,12 +64,15 @@ class DashboardExpenses extends StatelessWidget {
                         child: Text(
                           'Ostatnie Wydatki',
                           style: TextStyle(
-                              fontSize: 19, fontWeight: FontWeight.bold),
+                              fontSize: 19,
+                              fontWeight: FontWeight.bold,
+                              color: MySavingColors.defaultDarkText),
                         ),
                       ),
                     ],
                   ),
                 ),
+                Gap(10),
                 SizedBox(
                   height: 250,
                   child: ListView.builder(
@@ -78,6 +82,7 @@ class DashboardExpenses extends StatelessWidget {
                         width: 200,
                         height: 50,
                         child: Card(
+                          color: MySavingColors.defaultCategories,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -90,8 +95,8 @@ class DashboardExpenses extends StatelessWidget {
                                       child: Text(
                                         '${expense[index].name}',
                                         style: TextStyle(
-                                          color:
-                                              MySavingColors.defaultBlueButton,
+                                          color: MySavingColors
+                                              .defaultExpensesText,
                                           fontSize: 16,
                                         ),
                                       ),

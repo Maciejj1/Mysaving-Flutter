@@ -4,6 +4,8 @@ import 'package:mysavingapp/pages/expenses/helpers/expenses_adding_form.dart';
 import 'package:mysavingapp/pages/expenses/helpers/expenses_categories_column_list.dart';
 import 'package:mysavingapp/pages/expenses/helpers/expenses_categories_row_list.dart';
 
+import '../../common/utils/mysaving_colors.dart';
+
 class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({super.key});
 
@@ -15,6 +17,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MySavingColors.defaultBackgroundPage,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

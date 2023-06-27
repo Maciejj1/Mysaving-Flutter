@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 class DashboardButtons extends StatelessWidget {
   const DashboardButtons({super.key});
@@ -13,23 +14,24 @@ class DashboardButtons extends StatelessWidget {
           height: 44.0,
           width: 150,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.white),
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.transparent),
           child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 3, color: Color(0xFF444FFF)),
+                      side: BorderSide(
+                          width: 3, color: MySavingColors.defaultExpensesText),
                       borderRadius: BorderRadius.circular(25)),
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent),
               onPressed: () {},
               icon: Icon(
                 Icons.save,
-                color: Color(0xFF444FFF),
+                color: MySavingColors.defaultExpensesText,
               ),
-              label: const Text(
+              label: Text(
                 'Analitycs',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: MySavingColors.defaultDarkText),
               )),
         ),
         Gap(20),
@@ -38,24 +40,24 @@ class DashboardButtons extends StatelessWidget {
           width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
+            color: Colors.transparent,
           ),
           child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 3, color: Color(0xFF444FFF)),
+                      side: BorderSide(
+                          width: 3, color: MySavingColors.defaultExpensesText),
                       borderRadius: BorderRadius.circular(25)),
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent),
               onPressed: () {},
               icon: Icon(
                 Icons.save,
-                color: Color(0xFF444FFF),
+                color: MySavingColors.defaultExpensesText,
               ),
-              label: const Text(
+              label: Text(
                 'Last Month',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: MySavingColors.defaultDarkText),
               )),
         ),
       ],

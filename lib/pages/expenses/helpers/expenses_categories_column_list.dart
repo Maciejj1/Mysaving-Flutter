@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
-import '../../../config/models/expenses_model.dart';
-import '../../../config/repository/expenses_repository.dart';
+import '../../../data/models/expenses_model.dart';
+import '../../../data/repositories/expenses_repository.dart';
 import '../config/cubit/expense_cubit.dart';
 
 class ExpensesCategoriesColumnList extends StatelessWidget {
@@ -62,7 +62,8 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                           onTap: () {
                             showModalBottomSheet(
                               context: context,
-                              backgroundColor: Colors.white,
+                              backgroundColor:
+                                  MySavingColors.defaultBackgroundPage,
                               builder: (BuildContext context) {
                                 return ListView.builder(
                                   itemCount: category.expenses!.length,
@@ -72,6 +73,7 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                                       width: 200,
                                       height: 50,
                                       child: Card(
+                                        color: MySavingColors.defaultCategories,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -89,7 +91,7 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                                                       '${expense.name}',
                                                       style: TextStyle(
                                                         color: MySavingColors
-                                                            .defaultBlueButton,
+                                                            .defaultExpensesText,
                                                         fontSize: 16,
                                                       ),
                                                     ),
@@ -123,6 +125,7 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                             width: 200,
                             height: 50,
                             child: Card(
+                              color: MySavingColors.defaultCategories,
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: Row(
@@ -136,7 +139,7 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
                                             '${category.name}',
                                             style: TextStyle(
                                               color: MySavingColors
-                                                  .defaultBlueButton,
+                                                  .defaultExpensesText,
                                               fontSize: 16,
                                             ),
                                           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 class ProfileNav extends StatelessWidget {
   const ProfileNav({super.key});
@@ -22,7 +23,12 @@ class ProfileNav extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.notifications,
+                color: MySavingColors.defaultDarkText,
+              ))
         ],
       ),
     );
