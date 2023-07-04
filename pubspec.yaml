@@ -70,6 +70,7 @@ dependencies:
   unicons: ^2.1.1
   font_awesome_flutter: ^10.4.0
   flutter_sequence_animation: ^4.0.0
+  image_picker: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

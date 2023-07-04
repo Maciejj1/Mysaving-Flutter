@@ -42,9 +42,19 @@ class MySavingUpNav extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      SizedBox(
-                          width: 50,
-                          child: Image.asset(images.defaultProfilePicture)),
+                      profiles![0].pictureImage.isEmpty
+                          ? SizedBox(
+                              width: 50,
+                              child: Image.asset(images.defaultProfilePicture))
+                          : Container(
+                              width: 50,
+                              child: CircleAvatar(
+                                radius: 30,
+                                // Adjust the radius as per your requirements
+                                backgroundImage:
+                                    NetworkImage("${profiles[0].pictureImage}"),
+                              ),
+                            ),
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Column(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../common/utils/mysaving_colors.dart';
 import '../../../../data/models/dashboard_model.dart';
 
@@ -19,12 +18,12 @@ class VerticalBarChartPainter extends CustomPainter {
 
     final paint = Paint()..style = PaintingStyle.fill;
 
-    // Rysowanie przecinających linii
+    // Drawing intersecting lines
     for (var i = 0; i < data.length; i++) {
       final x = i * (barWidth + barSpacing) + (size.width - chartWidth) / 2;
 
-      // Rysowanie linii granic wydatków
-      paint.color = Colors.grey; // Kolor linii granic wydatków
+      // Drawing expense limit lines
+      paint.color = Colors.grey; // Expense limit lines color
       paint.strokeWidth = 1.0;
       canvas.drawLine(
         Offset(x, chartHeight / 2.9),
@@ -54,20 +53,20 @@ class VerticalBarChartPainter extends CustomPainter {
       );
     }
 
-    // Rysowanie słupków
+    // Drawing bars
     for (var i = 0; i < data.length; i++) {
       final x = i * (barWidth + barSpacing) + (size.width - chartWidth) / 2;
 
-      // Rysowanie linii granic wydatków
+      // Drawing expense limit lines
       paint.color =
-          MySavingColors.defaultExpensesText; // Kolor linii granic wydatków
+          MySavingColors.defaultExpensesText; // Expense limit lines color
       paint.strokeWidth = 1.0;
       canvas.drawLine(
         Offset(x, chartHeight / 2.9),
         Offset(x + barWidth, chartHeight / 2.9),
         paint,
       );
-      // Pozostałe linie granic wydatków
+      // Drawing remaining expense limit lines
 
       canvas.drawLine(
         Offset(x, chartHeight / 1.02),
@@ -75,26 +74,26 @@ class VerticalBarChartPainter extends CustomPainter {
         paint,
       );
 
-      // Rysowanie słupków
+      // Drawing bars
       final y =
           chartHeight - (data[i].expenses / maxExpenses) * chartHeight / 1.4;
       if (data[i].expenses > 600) {
         paint.color = MySavingColors.defaultRed;
       }
 
-      // Rysowanie słupka
+      // Drawing bar
       final radius = Radius.circular(55);
 
       final barRect = RRect.fromLTRBR(
         x,
-        y,
+        y.isNaN ? chartHeight : y,
         x + barWidth,
         chartHeight,
         radius,
       );
       canvas.drawRRect(barRect, paint);
 
-      // Rysowanie tekstu pod słupkami
+      // Drawing text below bars
       final textStyle = TextStyle(
         color: data[i].expenses > 600
             ? MySavingColors.defaultRed

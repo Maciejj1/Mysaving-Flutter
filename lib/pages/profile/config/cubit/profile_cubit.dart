@@ -55,7 +55,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void updateProfilePicture(String imagePath) async {
+  Future<void> updateProfilePicture(String imagePath) async {
     emit(ProfileLoading());
     try {
       await _profileRepository.updateProfilePicture(imagePath);

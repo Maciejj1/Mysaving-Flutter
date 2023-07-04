@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mysavingapp/data/models/profile_model.dart';
 import 'package:mysavingapp/data/repositories/interfaces/IProfileRepository.dart';
 import '../../config/services/user_manager.dart';
@@ -73,13 +76,32 @@ class ProfileRepository extends IProfileRepository {
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      int profileId = profiles[0].id;
+      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final querySnapshot = await collectionRef.get();
 
-      await profileCollection
-          .doc(userID)
-          .collection('profile')
-          .doc('$profileId')
-          .update({'email': newEmail});
+      List<UserProfile> profiles = [];
+
+      for (var profileDoc in querySnapshot.docs) {
+        final documentRef = profileDoc.reference;
+        final profilesData = profileDoc.data()['profile'];
+
+        final updatedProfilesData = profilesData.map((profile) {
+          if (profile['id'] == 1) {
+            // Replace '1' with the appropriate condition to identify the element to update
+            return {
+              ...profile,
+              'email':
+                  newEmail, // Replace 'downloadURL' with the updated image URL
+            };
+          } else {
+            return profile;
+          }
+        }).toList();
+
+        await documentRef.update({
+          'profile': updatedProfilesData,
+        });
+      }
     }
   }
 
@@ -91,13 +113,32 @@ class ProfileRepository extends IProfileRepository {
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      int profileId = profiles[0].id;
+      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final querySnapshot = await collectionRef.get();
 
-      await profileCollection
-          .doc(userID)
-          .collection('profile')
-          .doc('$profileId')
-          .update({'password': newPassword});
+      List<UserProfile> profiles = [];
+
+      for (var profileDoc in querySnapshot.docs) {
+        final documentRef = profileDoc.reference;
+        final profilesData = profileDoc.data()['profile'];
+
+        final updatedProfilesData = profilesData.map((profile) {
+          if (profile['id'] == 1) {
+            // Replace '1' with the appropriate condition to identify the element to update
+            return {
+              ...profile,
+              'password':
+                  newPassword, // Replace 'downloadURL' with the updated image URL
+            };
+          } else {
+            return profile;
+          }
+        }).toList();
+
+        await documentRef.update({
+          'profile': updatedProfilesData,
+        });
+      }
     }
   }
 
@@ -109,20 +150,88 @@ class ProfileRepository extends IProfileRepository {
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      int profileId = profiles[0].id;
+      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final querySnapshot = await collectionRef.get();
 
-      await profileCollection
-          .doc(userID)
-          .collection('profile')
-          .doc('$profileId')
-          .update({'name': newName});
+      List<UserProfile> profiles = [];
+
+      for (var profileDoc in querySnapshot.docs) {
+        final documentRef = profileDoc.reference;
+        final profilesData = profileDoc.data()['profile'];
+
+        final updatedProfilesData = profilesData.map((profile) {
+          if (profile['id'] == 1) {
+            // Replace '1' with the appropriate condition to identify the element to update
+            return {
+              ...profile,
+              'name':
+                  newName, // Replace 'downloadURL' with the updated image URL
+            };
+          } else {
+            return profile;
+          }
+        }).toList();
+
+        await documentRef.update({
+          'profile': updatedProfilesData,
+        });
+      }
     }
   }
 
-  @override
   Future<void> updateProfilePicture(String imagePath) async {
-    List<UserProfile> profiles = await getProfile();
+    UserManager userManager = UserManager();
+    String? userID;
+    userID = await userManager.getUID();
 
-    if (profiles.isNotEmpty) {}
+    if (userID != null) {
+      // Sprawdź, czy użytkownik jest zalogowany
+
+      String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+      Reference reference = FirebaseStorage.instance
+          .ref()
+          .child('users')
+          .child(userID)
+          .child('avatars')
+          .child(fileName);
+
+      UploadTask uploadTask = reference.putFile(File(imagePath));
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+
+      // Pobierz URL pobrania po zakończeniu przesyłania pliku
+      String downloadURL = await taskSnapshot.ref.getDownloadURL();
+
+      List<UserProfile> profiles = await getProfile();
+
+      if (profiles.isNotEmpty) {
+        final collectionRef =
+            profileCollection.doc(userID).collection('profile');
+        final querySnapshot = await collectionRef.get();
+
+        List<UserProfile> profiles = [];
+
+        for (var profileDoc in querySnapshot.docs) {
+          final documentRef = profileDoc.reference;
+          final profilesData = profileDoc.data()['profile'];
+
+          final updatedProfilesData = profilesData.map((profile) {
+            if (profile['id'] == 1) {
+              // Replace '1' with the appropriate condition to identify the element to update
+              return {
+                ...profile,
+                'image':
+                    downloadURL, // Replace 'downloadURL' with the updated image URL
+              };
+            } else {
+              return profile;
+            }
+          }).toList();
+
+          await documentRef.update({
+            'profile': updatedProfilesData,
+          });
+        }
+      }
+    }
   }
 }

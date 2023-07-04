@@ -47,10 +47,13 @@ class ProfileImage extends StatelessWidget {
                           width: 150,
                           child: Image.asset(images.defaultProfilePicture),
                         )
-                      : Text(
-                          "Zdjęcie: ${profiles[0].pictureImage}",
-                          style: TextStyle(
-                            fontSize: 18,
+                      : Container(
+                          width: 150,
+                          child: CircleAvatar(
+                            radius:
+                                75, // Adjust the radius as per your requirements
+                            backgroundImage:
+                                NetworkImage("${profiles[0].pictureImage}"),
                           ),
                         ),
                   Column(
