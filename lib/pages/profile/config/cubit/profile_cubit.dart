@@ -19,11 +19,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoaded(profiles: results));
   }
 
-  void updateEmail(String newEmail) async {
+  Future<void> updateEmail(String newEmail) async {
     emit(ProfileLoading());
     try {
       await _profileRepository.updateEmail(newEmail);
       emit(ProfileUpdated('Email updated successfully.'));
+      await fetchProfile(); // Fetch profile again after the update
     } catch (e, stacktrace) {
       print(stacktrace.toString());
       print(e.toString());
@@ -31,11 +32,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void updatePassword(String newPassword) async {
+  Future<void> updatePassword(String newPassword) async {
     emit(ProfileLoading());
     try {
       await _profileRepository.updatePassword(newPassword);
       emit(ProfileUpdated('Password updated successfully.'));
+      await fetchProfile();
     } catch (e, stacktrace) {
       print(stacktrace.toString());
       print(e.toString());
@@ -43,11 +45,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  void updateName(String newName) async {
+  Future<void> updateName(String newName) async {
     emit(ProfileLoading());
     try {
       await _profileRepository.updateName(newName);
       emit(ProfileUpdated('Name updated successfully.'));
+      await fetchProfile();
     } catch (e, stacktrace) {
       print(stacktrace.toString());
       print(e.toString());
@@ -60,6 +63,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       await _profileRepository.updateProfilePicture(imagePath);
       emit(ProfileUpdated('Profile picture updated successfully.'));
+      await fetchProfile(); // Fetch profile again after updating the picture
     } catch (e, stacktrace) {
       print(stacktrace.toString());
       print(e.toString());

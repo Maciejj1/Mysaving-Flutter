@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
-import 'package:mysavingapp/config/services/theme_constants.dart';
+import 'package:mysavingapp/common/theme/theme_constants.dart';
 import 'package:mysavingapp/data/models/dashboard_model.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_currency_picker.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_summary_row.dart';

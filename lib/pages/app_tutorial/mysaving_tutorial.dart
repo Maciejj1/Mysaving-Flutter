@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:mysavingapp/common/styles/mysaving_styles.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/pages/main_page/main_page.dart';
 
@@ -15,7 +16,6 @@ class MySavingTutorial extends StatefulWidget {
 
 class _MySavingTutorialState extends State<MySavingTutorial> {
   final introKey = GlobalKey<IntroductionScreenState>();
-
   void _onIntroEnd(context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const MainPage()),
@@ -46,19 +46,16 @@ class _MySavingTutorialState extends State<MySavingTutorial> {
 
   @override
   Widget build(BuildContext context) {
+    var msstyles = MySavingStyles(context);
     return IntroductionScreen(
         globalFooter: Padding(
           padding: EdgeInsets.only(bottom: 76),
           child: Container(
             width: 250,
             height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: MySavingColors.defaultBlueButton),
+            decoration: msstyles.mysavingButtonContainerStyles,
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent),
+              style: msstyles.mysavingButtonStyles,
               child: const Text(
                 'Let\'s go right away!',
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),

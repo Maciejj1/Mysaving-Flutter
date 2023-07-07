@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
-import 'package:mysavingapp/config/services/theme_constants.dart';
+import 'package:mysavingapp/common/theme/theme_constants.dart';
 
 class MysavingSwitch extends StatefulWidget {
   const MysavingSwitch({

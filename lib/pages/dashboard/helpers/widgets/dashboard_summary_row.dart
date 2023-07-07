@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../common/styles/mysaving_styles.dart';
+
 class DashboardSummaryRow extends StatelessWidget {
   const DashboardSummaryRow(
       {super.key,
@@ -16,6 +18,7 @@ class DashboardSummaryRow extends StatelessWidget {
   final Color textcolor;
   @override
   Widget build(BuildContext context) {
+    var msstyles = MySavingStyles(context);
     return SizedBox(
       width: 200,
       child: Column(
@@ -25,14 +28,9 @@ class DashboardSummaryRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                child: Text(
-                  titleText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF969696),
-                    fontSize: 13,
-                  ),
-                ),
+                child: Text(titleText,
+                    textAlign: TextAlign.center,
+                    style: msstyles.mysavingDashboardSummaryTitleStyle),
               ),
             ],
           ),

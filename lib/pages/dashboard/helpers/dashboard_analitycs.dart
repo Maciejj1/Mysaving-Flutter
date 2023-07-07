@@ -5,6 +5,7 @@ import 'package:mysavingapp/data/repositories/dashboard_repository.dart';
 import 'package:mysavingapp/pages/dashboard/conf/cubit/dashboard_analitycs_cubit.dart';
 import 'package:mysavingapp/pages/dashboard/helpers/widgets/dashboard_analitycs_chart.dart';
 
+import '../../../common/styles/mysaving_styles.dart';
 import '../../../data/models/dashboard_model.dart';
 
 class DashboardAnalitycsPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class DashboardAnalitycsPage extends StatelessWidget {
                 .expand((analytics) => analytics.summary)
                 .take(7)
                 .toList();
-
+            var msstyles = MySavingStyles(context);
             return Column(
               children: [
                 Padding(
@@ -52,10 +53,7 @@ class DashboardAnalitycsPage extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'Moja analiza',
-                          style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: MySavingColors.defaultDarkText),
+                          style: msstyles.mysavingDashboardSectionTitle,
                         ),
                       ),
                       Container(

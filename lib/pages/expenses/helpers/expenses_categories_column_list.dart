@@ -14,7 +14,7 @@ class ExpensesCategoriesColumnList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ExpenseCubit(dashboardRepository: ExpensesRepository())..getSummary(),
+          ExpenseCubit(expensesRepository: ExpensesRepository())..getSummary(),
       child: expenseBloc(),
     );
   }

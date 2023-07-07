@@ -94,4 +94,43 @@ class ExpensesRepository extends IExpensesRepository {
     }
     return expensesList;
   }
+
+  @override
+  Future<void> addExpense(String name, int cost, int categoryId) async {
+    UserManager userManager = UserManager();
+    String? userID;
+    userID = await userManager.getUID();
+
+    DocumentReference userExpenseDoc = expenseCollection.doc(userID);
+    CollectionReference userExpensesCol = userExpenseDoc.collection('expenses');
+
+    try {
+      final categorySnapshot =
+          await userExpensesCol.doc(categoryId.toString()).get();
+      final categoryData = categorySnapshot.data() as Map<String, dynamic>?;
+
+      if (categoryData != null) {
+        List<dynamic> expenses = categoryData['expenses'] ?? [];
+
+        expenses.add({
+          'name': name,
+          'cost': cost,
+        });
+
+        await userExpensesCol.doc(categoryId.toString()).update({
+          'expenses': expenses,
+        });
+      } else {
+        // Jeśli kategoria nie istnieje w bazie danych, dodaj ją wraz z nowym wydatkiem
+        await userExpensesCol.doc(categoryId.toString()).set({
+          'expenses': [
+            {'name': name, 'cost': cost},
+          ],
+        });
+      }
+    } catch (error, stackTrace) {
+      print('Error while adding expense: $error');
+      print('Stack trace: $stackTrace');
+    }
+  }
 }

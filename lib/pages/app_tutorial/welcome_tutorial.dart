@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:mysavingapp/pages/app_tutorial/mysaving_tutorial.dart';
 
+import '../../common/styles/mysaving_styles.dart';
 import '../../common/utils/mysaving_images.dart';
 
 // ignore: must_be_immutable
@@ -15,6 +16,7 @@ class WelcomeTutorialScreen extends StatelessWidget {
   MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
+    var msstyles = MySavingStyles(context);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -27,11 +29,7 @@ class WelcomeTutorialScreen extends StatelessWidget {
             Gap(100),
             Text(
               'Witaj Jan w MySaving!',
-              style: TextStyle(
-                  color: Color(0xFF202020),
-                  fontFamily: 'Inter',
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800),
+              style: msstyles.mysavingAuthTitleStyle,
             ),
             Gap(30),
             SizedBox(
@@ -50,13 +48,9 @@ class WelcomeTutorialScreen extends StatelessWidget {
             Container(
               height: 44.0,
               width: 250,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color(0xFF444FFF)),
+              decoration: msstyles.mysavingButtonContainerStyles,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent),
+                  style: msstyles.mysavingButtonStyles,
                   onPressed: () {
                     Navigator.of(context).push<void>(MySavingTutorial.route());
                   },

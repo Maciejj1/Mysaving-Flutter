@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/services/theme_constants.dart';
+import '../theme/theme_constants.dart';
 
 class MySavingColors {
   MySavingColors._();
@@ -16,29 +16,29 @@ class MySavingColors {
   // Colors
 
   static Color get defaultDarkText =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFFFFFF : 0xFF202020);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFFFFFF) : Color(0xFF202020);
   static Color get defaultBlueButton =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF212121 : 0xFF407AFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF212121) : Color(0xFF407AFF);
   static Color get defaultGreyText =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFFFFFF : 0xFF87898E);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFFFFFF) : Color(0xFF87898E);
   static Color get defaultGreen =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFFFFFF : 0xFF91F2C5);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFFFFFF) : Color(0xFF91F2C5);
   static Color get defaultRed =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFF6565 : 0xFFFF6565);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFF6565) : Color(0xFFFF6565);
   static Color get defaultInputStroke =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFFFFFF : 0xFFDADADA);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFFFFFF) : Color(0xFFDADADA);
   static Color get defaultLightBlueBackground =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF212121 : 0xFFE4ECFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF212121) : Color(0xFFE4ECFF);
   static Color get defaultWhite =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF212121 : 0xFFFFFFFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF212121) : Color(0xFFFFFFFF);
   static Color get defaultBackgroundPage =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF1A1A1A : 0xFFFFFFFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF1A1A1A) : Color(0xFFFFFFFF);
   static Color get defaultThemeTextDark =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFFFFFFFF : 0x33202020);
+      DarkModeSwitch.isDarkMode ? Color(0xFFFFFFFF) : Color(0x33202020);
   static Color get defaultThemeTextLight =>
-      Color(DarkModeSwitch.isDarkMode ? 0x33FFFFFF : 0xFF202020);
+      DarkModeSwitch.isDarkMode ? Color(0x33FFFFFF) : Color(0xFF202020);
   static Color get defaultCategories =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF212121 : 0xFFFFFFFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF212121) : Color(0xFFFFFFFF);
   static Color get defaultExpensesText =>
-      Color(DarkModeSwitch.isDarkMode ? 0xFF407AFF : 0xFF407AFF);
+      DarkModeSwitch.isDarkMode ? Color(0xFF407AFF) : Color(0xFF407AFF);
 }

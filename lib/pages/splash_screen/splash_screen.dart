@@ -5,6 +5,8 @@ import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/pages/auth/login/login.dart';
 
+import '../../common/styles/mysaving_styles.dart';
+
 // ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
   static Page<void> page() => MaterialPage<void>(child: SplashScreen());
@@ -12,6 +14,7 @@ class SplashScreen extends StatelessWidget {
   MySavingImages images = MySavingImages();
   @override
   Widget build(BuildContext context) {
+    var msstyles = MySavingStyles(context);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -24,11 +27,7 @@ class SplashScreen extends StatelessWidget {
             Gap(30),
             Text(
               'Zacznijmy',
-              style: TextStyle(
-                  color: MySavingColors.defaultDarkText,
-                  fontFamily: 'Inter',
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800),
+              style: msstyles.mysavingAuthTitleStyle,
             ),
             Gap(30),
             SizedBox(
@@ -49,13 +48,9 @@ class SplashScreen extends StatelessWidget {
             Container(
               height: 44.0,
               width: 250,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: MySavingColors.defaultBlueButton),
+              decoration: msstyles.mysavingButtonContainerStyles,
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent),
+                  style: msstyles.mysavingButtonStyles,
                   onPressed: () {
                     Navigator.of(context).push<void>(LoginScreen.route());
                   },

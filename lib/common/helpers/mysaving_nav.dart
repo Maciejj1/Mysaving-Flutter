@@ -4,6 +4,7 @@ import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/data/repositories/profile_repository.dart';
 import 'package:mysavingapp/pages/profile/config/cubit/profile_cubit.dart';
 
+import '../styles/mysaving_styles.dart';
 import '../utils/mysaving_images.dart';
 
 // ignore: must_be_immutable
@@ -35,6 +36,7 @@ class MySavingUpNav extends StatelessWidget {
         }
         if (state is ProfileLoaded) {
           final profiles = state.profiles;
+          var msstyles = MySavingStyles(context);
           return Padding(
             padding: const EdgeInsets.only(left: 20, right: 10, top: 20),
             child: Row(
@@ -67,11 +69,8 @@ class MySavingUpNav extends StatelessWidget {
                                   color: MySavingColors.defaultDarkText),
                             ),
                             Text(
-                              profiles![0].name,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: MySavingColors.defaultDarkText),
+                              profiles[0].name,
+                              style: msstyles.mysavingNavNameStyle,
                             ),
                           ],
                         ),

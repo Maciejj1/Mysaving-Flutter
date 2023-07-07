@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:mysavingapp/data/repositories/expenses_repository.dart';
 import 'package:intl/intl.dart';
 
+import '../../../common/styles/mysaving_styles.dart';
 import '../../../common/utils/mysaving_colors.dart';
 import '../../../data/models/expenses_model.dart';
 import '../../expenses/config/cubit/expense_cubit.dart';
@@ -15,7 +16,7 @@ class DashboardExpenses extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ExpenseCubit(dashboardRepository: ExpensesRepository())..getSummary(),
+          ExpenseCubit(expensesRepository: ExpensesRepository())..getSummary(),
       child: dashboardExpenesesBloc(),
     );
   }
@@ -51,7 +52,7 @@ class DashboardExpenses extends StatelessWidget {
               }
               return 0;
             });
-
+            var msstyles = MySavingStyles(context);
 // Wybieranie pięciu najnowszych wydatków
             expense = expense.take(5).toList();
             return Column(
@@ -63,10 +64,7 @@ class DashboardExpenses extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'Ostatnie Wydatki',
-                          style: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.bold,
-                              color: MySavingColors.defaultDarkText),
+                          style: msstyles.mysavingDashboardSectionTitle,
                         ),
                       ),
                     ],

@@ -20,6 +20,8 @@ class ExpenseSuccess extends ExpenseState {
   List<Object> get props => [expenses];
 }
 
+class ExpenseAddSuccess extends ExpenseState {}
+
 class ExpenseError extends ExpenseState {
   final String error;
 
