@@ -1,6 +1,5 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 import 'package:mysavingapp/common/utils/mysaving_images.dart';
 import 'package:mysavingapp/data/repositories/apple_repository.dart';
 import 'package:mysavingapp/data/repositories/google_repository.dart';

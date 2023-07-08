@@ -79,8 +79,6 @@ class ProfileRepository extends IProfileRepository {
       final collectionRef = profileCollection.doc(userID).collection('profile');
       final querySnapshot = await collectionRef.get();
 
-      List<UserProfile> profiles = [];
-
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
         final profilesData = profileDoc.data()['profile'];
@@ -116,8 +114,6 @@ class ProfileRepository extends IProfileRepository {
       final collectionRef = profileCollection.doc(userID).collection('profile');
       final querySnapshot = await collectionRef.get();
 
-      List<UserProfile> profiles = [];
-
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
         final profilesData = profileDoc.data()['profile'];
@@ -152,8 +148,6 @@ class ProfileRepository extends IProfileRepository {
     if (profiles.isNotEmpty) {
       final collectionRef = profileCollection.doc(userID).collection('profile');
       final querySnapshot = await collectionRef.get();
-
-      List<UserProfile> profiles = [];
 
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
@@ -207,8 +201,6 @@ class ProfileRepository extends IProfileRepository {
         final collectionRef =
             profileCollection.doc(userID).collection('profile');
         final querySnapshot = await collectionRef.get();
-
-        List<UserProfile> profiles = [];
 
         for (var profileDoc in querySnapshot.docs) {
           final documentRef = profileDoc.reference;

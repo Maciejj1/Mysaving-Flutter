@@ -3,14 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mysavingapp/common/helpers/profile_nav.dart';
-import 'package:mysavingapp/data/repositories/profile_repository.dart';
 import 'package:mysavingapp/pages/profile/config/cubit/profile_cubit.dart';
-import 'package:mysavingapp/pages/profile/helpers/profile_buttons.dart';
-import 'package:mysavingapp/pages/profile/helpers/profile_image.dart';
-import 'package:provider/provider.dart';
 
 import '../../bloc/app_bloc.dart';
-import '../../common/helpers/mysaving_switch.dart';
 import '../../common/theme/bloc/theme_bloc.dart';
 import '../../common/utils/mysaving_colors.dart';
 import '../../common/utils/mysaving_images.dart';

@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mysavingapp/common/utils/mysaving_colors.dart';
 
 class MySavingStyles {
-  late BuildContext _context;
   late MySavingColors mySavingColors;
-  MySavingStyles(BuildContext context) {
-    _context = context;
-  }
-  void init(BuildContext context) {
-    _context = context;
-  }
+  MySavingStyles(BuildContext context) {}
+  void init(BuildContext context) {}
 
   BoxDecoration get mysavingButtonContainerStyles => BoxDecoration(
       borderRadius: BorderRadius.circular(20),
