@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mysavingapp/data/models/premium_user_model.dart';
 
 class PremiumUserRepository {
   final String? uid;
 
   PremiumUserRepository({this.uid});
-
-  final CollectionReference expenseCollection =
-      FirebaseFirestore.instance.collection('userData');
-
+  String mainCollection = dotenv.env['MAIN_COLLECTION']!;
+  String pCollection = dotenv.env['P_COLLECTION']!;
   Future<void> updateUserData(List<PremiumUser> userPremium) async {
+    final CollectionReference expenseCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     List<Map<String, dynamic>> premiumData = userPremium.map((premium) {
       return {
         'id': premium.id,
@@ -21,10 +22,11 @@ class PremiumUserRepository {
 
     // Tworzymy nowy dokument w kolekcji "expenses" z UID użytkownika jako ID dokumentu
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
-    CollectionReference userDashboardCol = userExpenseDoc.collection('premium');
+    CollectionReference userDashboardCol =
+        userExpenseDoc.collection(pCollection);
 
     await userDashboardCol.add({
-      'premium': premiumData,
+      pCollection: premiumData,
     });
   }
 }

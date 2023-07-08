@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mysavingapp/data/repositories/interfaces/IDashboardRepository.dart';
 import 'package:intl/intl.dart';
 import '../models/dashboard_model.dart';
@@ -8,11 +9,15 @@ class DashboardRepository extends IDashboardRepository {
   final String? uid;
 
   DashboardRepository({this.uid});
-
-  final CollectionReference expenseCollection =
-      FirebaseFirestore.instance.collection('userData');
+  String mainCollection = dotenv.env['MAIN_COLLECTION']!;
+  String dCollection = dotenv.env['D_COLLECTION']!;
+  String dSubCollection = dotenv.env['D_SUBCOLLECTION']!;
+  String dSummary = dotenv.env['D_SUMMARY']!;
+  String dAnalitycs = dotenv.env['D_ANALITYCS']!;
 
   Future<void> updateUserData(List<DashboardModel> dashboards) async {
+    final CollectionReference expenseCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     List<Map<String, dynamic>> dashboardData = dashboards.map((dashboard) {
       List<Map<String, dynamic>> dashboardSummary =
           dashboard.dashboardSummary!.map((summary) {
@@ -49,7 +54,7 @@ class DashboardRepository extends IDashboardRepository {
     // Tworzymy nowy dokument w kolekcji "dashboard" z UID użytkownika jako ID dokumentu
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
     CollectionReference userDashboardCol =
-        userExpenseDoc.collection('dashboard');
+        userExpenseDoc.collection(dCollection);
 
     await userDashboardCol.add({
       'dashboards': dashboardData,
@@ -63,14 +68,13 @@ class DashboardRepository extends IDashboardRepository {
     userID = await userManager.getUID();
     List<DashboardSummary> dashboardList = [];
     final result = await firestore
-        .collection('userData')
+        .collection(mainCollection)
         .doc(userID)
-        .collection('dashboard')
+        .collection(dCollection)
         .get();
     for (var dashboardDoc in result.docs) {
       final dashboardData = dashboardDoc.data();
-      final dashboardSummary =
-          dashboardData['dashboards'][0]['dashboardSummary'];
+      final dashboardSummary = dashboardData[dSubCollection][0][dSummary];
 
       print('DashboardSummary: $dashboardSummary');
 
@@ -92,14 +96,13 @@ class DashboardRepository extends IDashboardRepository {
     userID = await userManager.getUID();
     List<DashboardAnalytics> dashboardList = [];
     final result = await firestore
-        .collection('userData')
+        .collection(mainCollection)
         .doc(userID)
-        .collection('dashboard')
+        .collection(dCollection)
         .get();
     for (var dashboardDoc in result.docs) {
       final dashboardData = dashboardDoc.data();
-      final dashboardAnalitycs =
-          dashboardData['dashboards'][0]['dashboardAnalitycs'];
+      final dashboardAnalitycs = dashboardData[dSubCollection][0][dAnalitycs];
 
       print('DashboardAnalitycs: $dashboardAnalitycs');
 

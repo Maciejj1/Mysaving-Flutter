@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mysavingapp/data/models/profile_model.dart';
 import 'package:mysavingapp/data/repositories/interfaces/IProfileRepository.dart';
 import '../../config/services/user_manager.dart';
@@ -10,11 +11,14 @@ class ProfileRepository extends IProfileRepository {
   final String? uid;
 
   ProfileRepository({this.uid});
-
-  final CollectionReference expenseCollection =
-      FirebaseFirestore.instance.collection('userData');
+  String mainCollection = dotenv.env['MAIN_COLLECTION']!;
+  String prCollection = dotenv.env['PR_COLLECTION']!;
+  String prStCollection = dotenv.env['PR_ST_COLLECTION']!;
+  String prSTSubCollection = dotenv.env['PR_ST_SUBCOLLECTION']!;
 
   Future<void> updateUserData(List<UserProfile> userProfiles) async {
+    final CollectionReference expenseCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     List<Map<String, dynamic>> profileData = userProfiles.map((profile) {
       return {
         'id': profile.id,
@@ -28,10 +32,11 @@ class ProfileRepository extends IProfileRepository {
 
     // Tworzymy nowy dokument w kolekcji "expenses" z UID użytkownika jako ID dokumentu
     DocumentReference userExpenseDoc = expenseCollection.doc(uid);
-    CollectionReference userDashboardCol = userExpenseDoc.collection('profile');
+    CollectionReference userDashboardCol =
+        userExpenseDoc.collection(prCollection);
 
     await userDashboardCol.add({
-      'profile': profileData,
+      prCollection: profileData,
     });
   }
 
@@ -39,15 +44,16 @@ class ProfileRepository extends IProfileRepository {
   Future<List<UserProfile>> getProfile() async {
     UserManager userManager = UserManager();
     String? userID = await userManager.getUID();
-
+    final CollectionReference profileCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     final result =
-        await profileCollection.doc(userID).collection('profile').get();
+        await profileCollection.doc(userID).collection(prCollection).get();
 
     List<UserProfile> profiles = [];
 
     for (var profileDoc in result.docs) {
       final profileData = profileDoc.data();
-      final profilesData = profileData['profile'];
+      final profilesData = profileData[prCollection];
 
       for (var profile in profilesData) {
         UserProfile userProfile = UserProfile(
@@ -66,22 +72,23 @@ class ProfileRepository extends IProfileRepository {
     return profiles;
   }
 
-  final CollectionReference profileCollection =
-      FirebaseFirestore.instance.collection('userData');
   @override
   Future<void> updateEmail(String newEmail) async {
+    final CollectionReference profileCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     UserManager userManager = UserManager();
     String? userID = await userManager.getUID();
 
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final collectionRef =
+          profileCollection.doc(userID).collection(prCollection);
       final querySnapshot = await collectionRef.get();
 
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
-        final profilesData = profileDoc.data()['profile'];
+        final profilesData = profileDoc.data()[prCollection];
 
         final updatedProfilesData = profilesData.map((profile) {
           if (profile['id'] == 1) {
@@ -97,7 +104,7 @@ class ProfileRepository extends IProfileRepository {
         }).toList();
 
         await documentRef.update({
-          'profile': updatedProfilesData,
+          prCollection: updatedProfilesData,
         });
       }
     }
@@ -107,16 +114,18 @@ class ProfileRepository extends IProfileRepository {
   Future<void> updatePassword(String newPassword) async {
     UserManager userManager = UserManager();
     String? userID = await userManager.getUID();
-
+    final CollectionReference profileCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final collectionRef =
+          profileCollection.doc(userID).collection(prCollection);
       final querySnapshot = await collectionRef.get();
 
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
-        final profilesData = profileDoc.data()['profile'];
+        final profilesData = profileDoc.data()[prCollection];
 
         final updatedProfilesData = profilesData.map((profile) {
           if (profile['id'] == 1) {
@@ -132,7 +141,7 @@ class ProfileRepository extends IProfileRepository {
         }).toList();
 
         await documentRef.update({
-          'profile': updatedProfilesData,
+          prCollection: updatedProfilesData,
         });
       }
     }
@@ -142,16 +151,18 @@ class ProfileRepository extends IProfileRepository {
   Future<void> updateName(String newName) async {
     UserManager userManager = UserManager();
     String? userID = await userManager.getUID();
-
+    final CollectionReference profileCollection =
+        FirebaseFirestore.instance.collection(mainCollection);
     List<UserProfile> profiles = await getProfile();
 
     if (profiles.isNotEmpty) {
-      final collectionRef = profileCollection.doc(userID).collection('profile');
+      final collectionRef =
+          profileCollection.doc(userID).collection(prCollection);
       final querySnapshot = await collectionRef.get();
 
       for (var profileDoc in querySnapshot.docs) {
         final documentRef = profileDoc.reference;
-        final profilesData = profileDoc.data()['profile'];
+        final profilesData = profileDoc.data()[prCollection];
 
         final updatedProfilesData = profilesData.map((profile) {
           if (profile['id'] == 1) {
@@ -167,7 +178,7 @@ class ProfileRepository extends IProfileRepository {
         }).toList();
 
         await documentRef.update({
-          'profile': updatedProfilesData,
+          prCollection: updatedProfilesData,
         });
       }
     }
@@ -184,9 +195,9 @@ class ProfileRepository extends IProfileRepository {
       String fileName = DateTime.now().microsecondsSinceEpoch.toString();
       Reference reference = FirebaseStorage.instance
           .ref()
-          .child('users')
+          .child(prStCollection)
           .child(userID)
-          .child('avatars')
+          .child(prSTSubCollection)
           .child(fileName);
 
       UploadTask uploadTask = reference.putFile(File(imagePath));
@@ -196,15 +207,16 @@ class ProfileRepository extends IProfileRepository {
       String downloadURL = await taskSnapshot.ref.getDownloadURL();
 
       List<UserProfile> profiles = await getProfile();
-
+      final CollectionReference profileCollection =
+          FirebaseFirestore.instance.collection(mainCollection);
       if (profiles.isNotEmpty) {
         final collectionRef =
-            profileCollection.doc(userID).collection('profile');
+            profileCollection.doc(userID).collection(prCollection);
         final querySnapshot = await collectionRef.get();
 
         for (var profileDoc in querySnapshot.docs) {
           final documentRef = profileDoc.reference;
-          final profilesData = profileDoc.data()['profile'];
+          final profilesData = profileDoc.data()[prCollection];
 
           final updatedProfilesData = profilesData.map((profile) {
             if (profile['id'] == 1) {
@@ -220,7 +232,7 @@ class ProfileRepository extends IProfileRepository {
           }).toList();
 
           await documentRef.update({
-            'profile': updatedProfilesData,
+            prCollection: updatedProfilesData,
           });
         }
       }
